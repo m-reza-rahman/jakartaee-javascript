@@ -34,11 +34,6 @@
         </user-data-constraint>
     </security-constraint>
     <deny-uncovered-http-methods/>
-    <login-config>
-        <auth-method>BASIC</auth-method>
-        <!-- Does not actually matter, EE 10 security will ignore this -->
-        <realm-name>realm</realm-name>
-    </login-config>
     <session-config>
         <session-timeout>
             30
