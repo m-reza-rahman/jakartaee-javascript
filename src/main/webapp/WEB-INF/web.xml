@@ -1,35 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+<web-app version="6.0"
+         xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
-             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-         version="3.1">
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <security-constraint>
         <display-name>Secure JavaScript Clients</display-name>
         <web-resource-collection>
             <web-resource-name>Secure Interfaces</web-resource-name>
             <url-pattern>/todo.jsp</url-pattern>
             <url-pattern>/chat.jsp</url-pattern>
-            <!--
-            <url-pattern>/resources/todo/*</url-pattern>
-            <url-pattern>/chat</url-pattern>
-            -->
             <http-method>GET</http-method>
-            <!--
-            <http-method>POST</http-method>
-            <http-method>PUT</http-method>
-            <http-method>DELETE</http-method>
-            -->
         </web-resource-collection>
         <auth-constraint>
-            <role-name>javascript</role-name>
+            <role-name>javascript_user</role-name>
         </auth-constraint>
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
     <security-constraint>
-        <display-name>Secure Java EE Backend</display-name>
+        <display-name>Secure Jakarta EE Back-End</display-name>
         <web-resource-collection>
             <web-resource-name>Secure Services</web-resource-name>
             <url-pattern>/resources/todo/*</url-pattern>
@@ -46,7 +36,8 @@
     <deny-uncovered-http-methods/>
     <login-config>
         <auth-method>BASIC</auth-method>
-        <realm-name>javascript-realm</realm-name>
+        <!-- Does not actually matter, EE 10 security will ignore this -->
+        <realm-name>realm</realm-name>
     </login-config>
     <session-config>
         <session-timeout>

@@ -1,75 +1,79 @@
 <html>
-    <head>
-        <title>Java EE as JavaScript Backend</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <h2>Java EE as JavaScript Backend</h2>
-        <p>The JavaScript backend consists of a chat WebSocket API
-            and a to do list REST API implemented using the Java
-            API for WebSocket, JSON-P, JAX-RS 2 and Java EE 7.</p>
-        <p>Note that while the endpoints in this application are not fully secured
-            but uses TLS/SSL, in a real application they should be secured, likely using
-            some sort of federated security scheme.</p>
-        <p>The WebSocket chat endpoint is at:
-            <a href="wss://localhost:8181/javaee-javascript/chat">
-                wss://localhost:8181/javaee-javascript/chat</a>. The
-            endpoint communicates via JSON. Once connected, a client
-            can send a chat message using this format:
-        <pre>
+<head>
+<title>Jakarta EE as a JavaScript Back-End</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+	<h2>Jakarta EE as a JavaScript Back-End</h2>
+	<p>The JavaScript back-end consists of a chat WebSocket API and a to
+		do list REST API implemented using the Java API for WebSocket, 
+		JSON Processing, REST, and Jakarta EE 10.</p>
+	<p>Note that while the end-points in this application are not fully
+		secured but uses TLS/SSL, in a real application they should be
+		secured, likely using OAuth.</p>
+	<p>
+		The WebSocket chat end-point is at: <a
+			href="wss://localhost:8181/jakartaee-javascript/chat">
+			wss://localhost:8181/jakartaee-javascript/chat</a>. The end-point
+		communicates via JSON. Once connected, a client can send a chat
+		message using this format:
+	    <pre>
         {"user": "the name of the user",
          "message": "the chat message"}
         </pre>
-        Each chat message sent to the server will be echoed back to all
-        currently connected clients including the client that sent the
-        message. The server will also include the timestamp on the server
-        when the message was received. The chat messages echoed back
-        from the server will follow this format:
-        <pre>
+	    Each chat message sent to the server will be echoed back to all
+	    currently connected clients including the client that sent the message.
+	    The server will also include the time-stamp on the server when the
+	    message was received. The chat messages echoed back from the server
+	    will follow this format:
+	    <pre>
         {"user": "the name of the user that sent the message",
          "message": "the echoed chat message",
-         "timestamp": "the server timestamp - MM/dd/yyyy h:mm:ss a z"}
+         "timestamp": "the server time stamp - MM/dd/yyyy h:mm:ss a z"}
         </pre>
-    </p>
-    <p>The REST endpoint is available at <a href="https://localhost:8181/javaee-javascript/resources/todo">
-            https://localhost:8181/javaee-javascript/resources/todo</a>. The
-        REST endpoint also communicates with the client using JSON.
-        To do items are stored under various usernames. To retrieve
-        the current to do items for a given user, the client must issue
-        a GET request to this URL: <a href="https://localhost:8181/javaee-javascript/resources/todo/{username}">
-            https://localhost:8181/javaee-javascript/resources/todo/{username}</a>.
-        The server will respond with the list of current to do items for the
-        user following this format:
-    <pre>
+	</p>
+	<p>
+		The REST end-point is available at <a
+		href="https://localhost:8181/jakartaee-javascript/resources/todo">
+		https://localhost:8181/jakartaee-javascript/resources/todo</a>. The REST
+		end-point also communicates with the client using JSON. To do items are
+		stored under various usernames. To retrieve the current to do items
+		for a given user, the client must issue a GET request to this URL: <a
+		href="https://localhost:8181/jakartaee-javascript/resources/todo/{username}">
+		https://localhost:8181/jakartaee-javascript/resources/todo/{username}</a>.
+		The server will respond with the list of current to do items for the
+		user following this format:
+	    <pre>
         [{"id": "to do item ID",
-         "description": "item 1 description",
-         "completed": "true|false"},
+          "description": "item 1 description",
+          "completed": "true|false"},
          {"id": "to do item ID",
-         "description": "item 2 description",
-         "completed": "true|false"}
-         ...]
-    </pre>
-    To add an item for a user, the client must issue a POST request to
-    this URL: <a href="https://localhost:8181/javaee-javascript/resources/todo/{username}">
-        https://localhost:8181/javaee-javascript/resources/todo/{username}</a>.
-    The POST body must follow this format:
-    <pre>
+          "description": "item 2 description",
+          "completed": "true|false"}
+        ...]
+        </pre>
+	    To add an item for a user, the client must issue a POST request to this URL:
+	    <a href="https://localhost:8181/jakartaee-javascript/resources/todo/{username}">
+		https://localhost:8181/jakartaee-javascript/resources/todo/{username}</a>.
+	    The POST body must follow this format:
+	    <pre>
         {"description": "item description"}
-    </pre>
-    An ID will be automatically assigned and the item will be assumed to be
-    incomplete. The POST response will return the ID assigned to the item as plain text (not JSON).
-    To modify a to do item, the client must issue a PUT
-    request to this URL: <a href="https://localhost:8181/javaee-javascript/resources/todo/{username}/{id}">
-        https://localhost:8181/javaee-javascript/resources/todo/{username}/{id}</a>.
-    The PUT request body must follow this format:
-    <pre>
+        </pre>
+	    An ID will be automatically assigned and the item will be assumed to be
+	    incomplete. The POST response will return the ID assigned to the item
+	    as plain text (not JSON). To modify a to do item, the client must issue
+	    a PUT request to this URL:
+	    <a href="https://localhost:8181/jakartaee-javascript/resources/todo/{username}/{id}">
+		https://localhost:8181/jakartaee-javascript/resources/todo/{username}/{id}</a>.
+	    The PUT request body must follow this format:
+	    <pre>
         {"id": "to do item ID",
          "description": "item description",
          "completed": "true|false"}
-    </pre>
-    To delete a to do item, the client must issue a DELETE request to
-    this URL: <a href="https://localhost:8181/javaee-javascript/resources/todo/{username}/{id}">
-        https://localhost:8181/javaee-javascript/resources/todo/{username}/{id}</a>.
-</p>
+        </pre>
+	    To delete a to do item, the client must issue a DELETE request to this URL:
+	    <a href="https://localhost:8181/jakartaee-javascript/resources/todo/{username}/{id}">
+		https://localhost:8181/jakartaee-javascript/resources/todo/{username}/{id}</a>.
+	</p>
 </body>
 </html>
