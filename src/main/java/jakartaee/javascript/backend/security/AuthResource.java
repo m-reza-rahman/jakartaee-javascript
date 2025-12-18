@@ -1,4 +1,4 @@
-package jakartaee.javascript.backend.auth;
+package jakartaee.javascript.backend.security;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-package jakartaee.javascript;
+package jakartaee.javascript.backend.security;
 
 import jakarta.annotation.security.DeclareRoles;
 import jakarta.annotation.sql.DataSourceDefinition;
@@ -14,7 +14,8 @@ import jakarta.security.enterprise.identitystore.DatabaseIdentityStoreDefinition
 @DatabaseIdentityStoreDefinition(
 	dataSourceLookup = "java:app/jdbc/JavaScriptDb", 
 	callerQuery = "SELECT PASSWORD FROM JAVASCRIPT_USERS WHERE USERNAME = ?", 
-	groupsQuery = "SELECT GROUP_NAME FROM JAVASCRIPT_GROUPS WHERE USERNAME = ?")
+	groupsQuery = "SELECT GROUP_NAME FROM JAVASCRIPT_GROUPS WHERE USERNAME = ?",
+	hashAlgorithm = PlainTextPasswordHash.class)
 @BasicAuthenticationMechanismDefinition(realmName = "JavaScriptRealm")
 @DeclareRoles({"javascript_user"})
 public class SecurityConfig {
