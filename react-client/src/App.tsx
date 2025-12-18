@@ -5,36 +5,15 @@ import { InputText } from 'primereact/inputtext';
 import { MenuItem } from 'primereact/menuitem';
 import TodoPage from './pages/TodoPage';
 import ChatPage from './pages/ChatPage';
-import { getWhoAmI } from './services/todoApi';
 import { DEFAULT_USERNAME } from './services/apiConfig';
 import './App.css';
 
-interface WhoAmIResponse {
-  user: string;
-  roles: string[];
-}
-
 function App() {
   const [username, setUsername] = useState(() => localStorage.getItem('username') || DEFAULT_USERNAME);
-  const [authInfo, setAuthInfo] = useState<WhoAmIResponse | null>(null);
 
   useEffect(() => {
     localStorage.setItem('username', username);
   }, [username]);
-
-  useEffect(() => {
-    let cancelled = false;
-    getWhoAmI()
-      .then((info) => {
-        if (!cancelled) setAuthInfo(info);
-      })
-      .catch(() => {
-        // request() handles 401 redirect to /auth.jsp
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
 
   const items: MenuItem[] = [
     {
@@ -69,9 +48,6 @@ function App() {
         </span>
         <InputText id="username-input" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="username" />
       </div>
-      <span className="text-600 white-space-nowrap">
-        Auth: {authInfo?.user || '—'}{authInfo?.roles?.length ? ` (${authInfo.roles.join(', ')})` : ''}
-      </span>
     </div>
   );
 
