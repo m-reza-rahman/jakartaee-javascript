@@ -14,9 +14,6 @@
             <http-method>PUT</http-method>
             <http-method>DELETE</http-method>
         </web-resource-collection>
-        <user-data-constraint>
-            <transport-guarantee>NONE</transport-guarantee>
-        </user-data-constraint>
     </security-constraint>
     <security-constraint>
         <display-name>Secure REST Authentication Bridge</display-name>
@@ -28,9 +25,9 @@
             <http-method>PUT</http-method>
             <http-method>DELETE</http-method>
         </web-resource-collection>
-        <user-data-constraint>
-            <transport-guarantee>NONE</transport-guarantee>
-        </user-data-constraint>
+        <auth-constraint>
+            <role-name>javascript_user</role-name>
+        </auth-constraint>
     </security-constraint>
     <security-constraint>
         <display-name>Public Static Content</display-name>
@@ -45,9 +42,6 @@
             <http-method>GET</http-method>
         </web-resource-collection>
         <!-- No auth-constraint means public access -->
-        <user-data-constraint>
-            <transport-guarantee>NONE</transport-guarantee>
-        </user-data-constraint>
     </security-constraint>
     <session-config>
         <session-timeout>
