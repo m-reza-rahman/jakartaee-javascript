@@ -61,4 +61,9 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+
+    <!-- Declare application roles for authorization mapping -->
+    <security-role>
+        <role-name>javascript_user</role-name>
+    </security-role>
 </web-app>
