@@ -9,21 +9,13 @@
             <web-resource-name>Back-End Services</web-resource-name>
             <url-pattern>/resources/todo/*</url-pattern>
             <url-pattern>/chat</url-pattern>
-            <http-method>GET</http-method>
-            <http-method>POST</http-method>
-            <http-method>PUT</http-method>
-            <http-method>DELETE</http-method>
         </web-resource-collection>
     </security-constraint>
     <security-constraint>
         <display-name>Secure REST Authentication Bridge</display-name>
         <web-resource-collection>
-            <web-resource-name>Authentication Resource</web-resource-name>
+            <web-resource-name>Authentication Bridge</web-resource-name>
             <url-pattern>/resources/auth/*</url-pattern>
-            <http-method>GET</http-method>
-            <http-method>POST</http-method>
-            <http-method>PUT</http-method>
-            <http-method>DELETE</http-method>
         </web-resource-collection>
         <auth-constraint>
             <role-name>javascript_user</role-name>
@@ -39,7 +31,6 @@
             <url-pattern>/robots.txt</url-pattern>
             <url-pattern>/assets/*</url-pattern>
             <url-pattern>/static/*</url-pattern>
-            <http-method>GET</http-method>
         </web-resource-collection>
         <!-- No auth-constraint means public access -->
     </security-constraint>
@@ -51,15 +42,4 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
-
-    <!-- Declare application roles for WildFly role mapping -->
-    <security-role>
-        <role-name>javascript_user</role-name>
-    </security-role>
-
-    <!-- Explicit login configuration for BASIC auth -->
-    <login-config>
-        <auth-method>BASIC</auth-method>
-        <realm-name>JavaScriptRealm</realm-name>
-    </login-config>
 </web-app>
