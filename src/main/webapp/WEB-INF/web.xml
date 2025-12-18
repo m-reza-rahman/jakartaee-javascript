@@ -15,7 +15,7 @@
             <http-method>DELETE</http-method>
         </web-resource-collection>
         <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+            <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
     <security-constraint>
@@ -28,11 +28,8 @@
             <http-method>PUT</http-method>
             <http-method>DELETE</http-method>
         </web-resource-collection>
-        <auth-constraint>
-            <role-name>javascript_user</role-name>
-        </auth-constraint>
         <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+            <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
     <security-constraint>
@@ -52,7 +49,6 @@
             <transport-guarantee>NONE</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
-    <deny-uncovered-http-methods/>
     <session-config>
         <session-timeout>
             30
@@ -62,8 +58,14 @@
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
-    <!-- Declare application roles for authorization mapping -->
+    <!-- Declare application roles for WildFly role mapping -->
     <security-role>
         <role-name>javascript_user</role-name>
     </security-role>
+
+    <!-- Explicit login configuration for BASIC auth -->
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>JavaScriptRealm</realm-name>
+    </login-config>
 </web-app>

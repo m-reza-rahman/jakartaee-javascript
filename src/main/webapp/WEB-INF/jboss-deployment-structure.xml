@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.2">
-    <deployment>
-        <dependencies>
-            <!-- Ensure H2 driver/classes are available to WildFly components -->
-            <module name="com.h2database.h2" services="import"/>
-        </dependencies>
-    </deployment>
-</jboss-deployment-structure>

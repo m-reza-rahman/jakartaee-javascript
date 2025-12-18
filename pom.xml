@@ -16,17 +16,29 @@
 		<project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
 		<maven.compiler.release>21</maven.compiler.release>
 		<jakartaee-api.version>10.0.0</jakartaee-api.version>
-		<wildfly.version>38.0.1.Final</wildfly.version>
+		<payara-micro.version>7.2025.1</payara-micro.version>
 		<h2.version>2.3.232</h2.version>
 		<frontend-maven-plugin.version>1.15.4</frontend-maven-plugin.version>
-		<skipFrontend>false</skipFrontend>
 		<node.version>v20.11.1</node.version>
 		<npm.version>10.5.0</npm.version>
 		<compiler-plugin.version>3.13.0</compiler-plugin.version>
 		<war-plugin.version>3.4.0</war-plugin.version>
 		<resources-plugin.version>3.3.1</resources-plugin.version>
-		<wildfly-plugin.version>5.0.1.Final</wildfly-plugin.version>
+		<payara-micro-maven-plugin.version>2.4</payara-micro-maven-plugin.version>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>payara-nexus-artifacts</id>
+			<url>https://nexus.payara.fish/repository/payara-artifacts/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -35,6 +47,12 @@
 			<version>${jakartaee-api.version}</version>
 			<scope>provided</scope>
 		</dependency>
+        <dependency>
+            <groupId>fish.payara.extras</groupId>
+            <artifactId>payara-micro</artifactId>
+            <version>${payara-micro.version}</version>
+            <scope>provided</scope>
+        </dependency>		
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -64,7 +82,6 @@
 				<artifactId>frontend-maven-plugin</artifactId>
 				<version>${frontend-maven-plugin.version}</version>
 				<configuration>
-					<skip>${skipFrontend}</skip>
 					<workingDirectory>react-client</workingDirectory>
 					<installDirectory>target</installDirectory>
 				</configuration>
@@ -119,16 +136,28 @@
                 </executions>
             </plugin>
 
-            <!-- Execute 'mvn clean package wildfly:dev' to run the application. -->
+            <!--  Execute 'mvn clean package payara-micro:start' to run the application.  -->
             <plugin>
-                <groupId>org.wildfly.plugins</groupId>
-                <artifactId>wildfly-maven-plugin</artifactId>
-                <version>${wildfly-plugin.version}</version>
+                <groupId>fish.payara.maven.plugins</groupId>
+                <artifactId>payara-micro-maven-plugin</artifactId>
+                <version>${payara-micro-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <version>${wildfly.version}</version>
-                    <server-config>standalone-full.xml</server-config>
-                </configuration>
-            </plugin>
+                    <artifactItem>
+                        <groupId>fish.payara.extras</groupId>
+                        <artifactId>payara-micro</artifactId>
+                        <version>${payara-micro.version}</version>
+                   </artifactItem>
+                   <deployWar>true</deployWar>
+                   <contextRoot>/</contextRoot>
+               </configuration>
+           </plugin>
 		</plugins>
 	</build>
 
