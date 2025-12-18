@@ -4,23 +4,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <security-constraint>
-        <display-name>Secure Authentication Bridge</display-name>
-        <web-resource-collection>
-            <web-resource-name>Authentication Page</web-resource-name>
-            <url-pattern>/auth.jsp</url-pattern>
-            <http-method>GET</http-method>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>javascript_user</role-name>
-        </auth-constraint>
-        <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
-    </security-constraint>
-    <security-constraint>
         <display-name>Jakarta EE Back-End</display-name>
         <web-resource-collection>
             <web-resource-name>Back-End Services</web-resource-name>
+            <url-pattern>/resources/auth/*</url-pattern>
             <url-pattern>/resources/todo/*</url-pattern>
             <url-pattern>/chat</url-pattern>
             <http-method>GET</http-method>

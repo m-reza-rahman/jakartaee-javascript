@@ -1,4 +1,5 @@
 import { API_BASE } from './apiConfig';
+import { redirectToLogin } from './authService';
 
 interface ToDoItem {
   id: number;
@@ -8,13 +9,6 @@ interface ToDoItem {
 
 const jsonHeaders: Record<string, string> = { 'Content-Type': 'application/json' };
 
-function redirectToBasicLogin(): void {
-  const here = window.location.href;
-  const redirect = encodeURIComponent(here);
-  // Use protected JSP to trigger browser Basic Auth prompt, then return to SPA
-  window.location.assign(`/auth.jsp?redirect=${redirect}`);
-}
-
 async function request<T = any>(path: string, options: RequestInit = {}): Promise<T | null> {
   const response = await fetch(`${API_BASE}${path}`, {
     credentials: 'include',
@@ -23,7 +17,7 @@ async function request<T = any>(path: string, options: RequestInit = {}): Promis
   });
 
   if (response.status === 401) {
-    redirectToBasicLogin();
+    redirectToLogin();
     throw new Error('Authentication required');
   }
 
