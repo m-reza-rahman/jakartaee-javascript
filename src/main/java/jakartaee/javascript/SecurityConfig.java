@@ -4,6 +4,7 @@ import jakarta.annotation.sql.DataSourceDefinition;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.security.enterprise.authentication.mechanism.http.BasicAuthenticationMechanismDefinition;
 import jakarta.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
+import org.glassfish.soteria.identitystores.hash.PlainPasswordHash;
 
 @ApplicationScoped
 @DataSourceDefinition(
@@ -13,7 +14,8 @@ import jakarta.security.enterprise.identitystore.DatabaseIdentityStoreDefinition
 @DatabaseIdentityStoreDefinition(
 		dataSourceLookup = "java:app/jdbc/JavaScriptDb", 
 		callerQuery = "SELECT PASSWORD FROM JAVASCRIPT_USERS WHERE USERNAME = ?", 
-		groupsQuery = "SELECT GROUP_NAME FROM JAVASCRIPT_GROUPS WHERE USERNAME = ?")
+		groupsQuery = "SELECT GROUP_NAME FROM JAVASCRIPT_GROUPS WHERE USERNAME = ?",
+		hashAlgorithm = PlainPasswordHash.class)
 @BasicAuthenticationMechanismDefinition(realmName = "JavaScriptRealm")
 public class SecurityConfig {
 	// Security configuration.
