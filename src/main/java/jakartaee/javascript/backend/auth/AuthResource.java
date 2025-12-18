@@ -2,7 +2,6 @@ package jakartaee.javascript.backend.auth;
 
 import java.io.Serializable;
 
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -22,7 +21,6 @@ public class AuthResource implements Serializable {
 	@GET
 	@Path("/user")
 	@Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_HTML})
-	@RolesAllowed("javascript_user")
 	public Response getCurrentUser(
 			@Context SecurityContext securityContext,
 			@QueryParam("redirect") String redirect) {
