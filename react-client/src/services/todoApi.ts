@@ -72,3 +72,21 @@ export function deleteToDo(username: string, id: number): Promise<null> {
     method: 'DELETE',
   });
 }
+
+export async function ensureAuthenticated(): Promise<void> {
+  // Make a simple authenticated request to ensure session is established
+  // This is needed before opening WebSocket connections
+  try {
+    await fetch(`${API_BASE}/todo/ping`, { 
+      credentials: 'include',
+      headers: jsonHeaders 
+    }).then(response => {
+      if (response.status === 401) {
+        redirectToBasicLogin();
+        throw new Error('Authentication required');
+      }
+    });
+  } catch (err) {
+    // If ping endpoint doesn't exist, that's ok - auth will be checked on actual use
+  }
+}

@@ -3,6 +3,7 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
 import { createChatClient, ChatMessage } from '../services/chatClient';
+import { ensureAuthenticated } from '../services/todoApi';
 
 interface ChatPageProps {
   username: string;
@@ -16,14 +17,22 @@ function ChatPage({ username }: ChatPageProps) {
   const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const client = createChatClient(username, {
-      onMessage: (msg) => setMessages((prev) => [...prev, msg]),
-      onError: (err) => setStatus(err || 'Connection error'),
-      onOpen: () => setStatus('Connected'),
-      onClose: () => setStatus('Disconnected'),
+    // Ensure basic auth session is established before opening WebSocket
+    ensureAuthenticated().then(() => {
+      const client = createChatClient(username, {
+        onMessage: (msg) => setMessages((prev) => [...prev, msg]),
+        onError: (err) => setStatus(err || 'Connection error'),
+        onOpen: () => setStatus('Connected'),
+        onClose: () => setStatus('Disconnected'),
+      });
+      clientRef.current = client;
     });
-    clientRef.current = client;
-    return () => client.close();
+    
+    return () => {
+      if (clientRef.current) {
+        clientRef.current.close();
+      }
+    };
   }, [username]);
 
   useEffect(() => {
