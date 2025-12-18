@@ -4,11 +4,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
     <security-constraint>
-        <display-name>Secure JavaScript Clients</display-name>
+        <display-name>Secure Authentication Bridge</display-name>
         <web-resource-collection>
-            <web-resource-name>Secure Interfaces</web-resource-name>
-            <url-pattern>/todo.jsp</url-pattern>
-            <url-pattern>/chat.jsp</url-pattern>
+            <web-resource-name>Authentication Page</web-resource-name>
+            <url-pattern>/auth.jsp</url-pattern>
             <http-method>GET</http-method>
         </web-resource-collection>
         <auth-constraint>
@@ -19,9 +18,9 @@
         </user-data-constraint>
     </security-constraint>
     <security-constraint>
-        <display-name>Secure Jakarta EE Back-End</display-name>
+        <display-name>Jakarta EE Back-End</display-name>
         <web-resource-collection>
-            <web-resource-name>Secure Services</web-resource-name>
+            <web-resource-name>Back-End Services</web-resource-name>
             <url-pattern>/resources/todo/*</url-pattern>
             <url-pattern>/chat</url-pattern>
             <http-method>GET</http-method>
@@ -33,10 +32,30 @@
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
+    <security-constraint>
+        <display-name>Public Static Content</display-name>
+        <web-resource-collection>
+            <web-resource-name>Public Static Content</web-resource-name>
+            <url-pattern>/index.html</url-pattern>
+            <url-pattern>/backend.html</url-pattern>
+            <url-pattern>/manifest.json</url-pattern>
+            <url-pattern>/robots.txt</url-pattern>
+            <url-pattern>/assets/*</url-pattern>
+            <url-pattern>/static/*</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <!-- No auth-constraint means public access -->
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
     <deny-uncovered-http-methods/>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
 </web-app>

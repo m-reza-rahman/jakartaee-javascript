@@ -12,7 +12,9 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "todo_item")
-@NamedQuery(name = "ToDoItem.findByUsername", query = "SELECT i FROM ToDoItem i WHERE i.username = :username")
+@NamedQuery(
+		name = "ToDoItem.findByUsername", 
+		query = "SELECT i FROM ToDoItem i WHERE i.username = :username")
 public class ToDoItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;

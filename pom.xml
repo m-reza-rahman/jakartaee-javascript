@@ -1,73 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>jakartaee-javascript</groupId>
-    <artifactId>jakartaee-javascript</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+	<groupId>jakartaee-javascript</groupId>
+	<artifactId>jakartaee-javascript</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
 
-    <name>jakartaee-javascript</name>
+	<name>jakartaee-javascript</name>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
-        <maven.compiler.release>21</maven.compiler.release>
-        <jakartaee-api.version>10.0.0</jakartaee-api.version>
-        <payara.version>7.2025.2</payara.version>
-        <compiler-plugin.version>3.13.0</compiler-plugin.version>
-        <war-plugin.version>3.4.0</war-plugin.version>
-        <cargo.version>1.10.15</cargo.version>
-    </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
+		<maven.compiler.release>21</maven.compiler.release>
+		<jakartaee-api.version>10.0.0</jakartaee-api.version>
+		<wildfly.version>38.0.1.Final</wildfly.version>
+		<compiler-plugin.version>3.13.0</compiler-plugin.version>
+		<war-plugin.version>3.4.0</war-plugin.version>
+        <wildfly-plugin.version>5.0.1.Final</wildfly-plugin.version>
+	</properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>jakarta.platform</groupId>
-            <artifactId>jakarta.jakartaee-api</artifactId>
-            <version>${jakartaee-api.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>2.2.224</version>
-            <scope>runtime</scope>
-        </dependency>
-    </dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>jakarta.platform</groupId>
+			<artifactId>jakarta.jakartaee-api</artifactId>
+			<version>${jakartaee-api.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>2.2.224</version>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
 
-    <build>
-        <finalName>jakartaee-javascript</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${compiler-plugin.version}</version>
+	<build>
+		<finalName>jakartaee-javascript</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${compiler-plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${war-plugin.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.15.4</version>
+				<configuration>
+					<workingDirectory>react-client</workingDirectory>
+					<installDirectory>target</installDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>install-node-npm</id>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+						<configuration>
+							<nodeVersion>v20.11.1</nodeVersion>
+							<npmVersion>10.5.0</npmVersion>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm-ci</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>ci</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm-build</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>run build</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-react</id>
+                        <phase>prepare-package</phase>
+                        <goals><goal>copy-resources</goal></goals>
+                        <configuration>
+							<outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
+                            <resources>
+                                <resource>
+									<directory>react-client/build</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>${war-plugin.version}</version>
-            </plugin>
 
-            <!-- Execute 'mvn clean package cargo:run' to run the application. -->
+            <!-- Execute 'mvn clean package wildfly:dev' to run the application. -->
             <plugin>
-                <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven3-plugin</artifactId>
-                <version>${cargo.version}</version>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>${wildfly-plugin.version}</version>
                 <configuration>
-                    <container>
-                        <containerId>payara</containerId>
-                        <artifactInstaller>
-                            <groupId>fish.payara.distributions</groupId>
-                            <artifactId>payara</artifactId>
-                            <version>${payara.version}</version>
-                        </artifactInstaller>
-                    </container>
+                    <version>${wildfly.version}</version>
+                    <server-config>standalone-full.xml</server-config>
                 </configuration>
             </plugin>
-        </plugins>
-    </build>
+		</plugins>
+	</build>
 
 </project>

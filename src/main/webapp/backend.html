@@ -13,8 +13,8 @@
 		secured, likely using OAuth.</p>
 	<p>
 		The WebSocket chat end-point is at: <a
-			href="wss://localhost:8181/jakartaee-javascript/chat">
-			wss://localhost:8181/jakartaee-javascript/chat</a>. The end-point
+		href="wss://localhost:8443/jakartaee-javascript/chat">
+		wss://localhost:8443/jakartaee-javascript/chat</a>. The end-point
 		communicates via JSON. Once connected, a client can send a chat
 		message using this format:
 	    <pre>
@@ -34,13 +34,13 @@
 	</p>
 	<p>
 		The REST end-point is available at <a
-		href="https://localhost:8181/jakartaee-javascript/resources/todo">
-		https://localhost:8181/jakartaee-javascript/resources/todo</a>. The REST
+		href="https://localhost:8443/jakartaee-javascript/resources/todo">
+		https://localhost:8443/jakartaee-javascript/resources/todo</a>. The REST
 		end-point also communicates with the client using JSON. To do items are
 		stored under various usernames. To retrieve the current to do items
 		for a given user, the client must issue a GET request to this URL: <a
-		href="https://localhost:8181/jakartaee-javascript/resources/todo/{username}">
-		https://localhost:8181/jakartaee-javascript/resources/todo/{username}</a>.
+		href="https://localhost:8443/jakartaee-javascript/resources/todo/{username}">
+		https://localhost:8443/jakartaee-javascript/resources/todo/{username}</a>.
 		The server will respond with the list of current to do items for the
 		user following this format:
 	    <pre>
@@ -53,8 +53,8 @@
         ...]
         </pre>
 	    To add an item for a user, the client must issue a POST request to this URL:
-	    <a href="https://localhost:8181/jakartaee-javascript/resources/todo/{username}">
-		https://localhost:8181/jakartaee-javascript/resources/todo/{username}</a>.
+	    <a href="https://localhost:8443/jakartaee-javascript/resources/todo/{username}">
+		https://localhost:8443/jakartaee-javascript/resources/todo/{username}</a>.
 	    The POST body must follow this format:
 	    <pre>
         {"description": "item description"}
@@ -63,8 +63,8 @@
 	    incomplete. The POST response will return the ID assigned to the item
 	    as plain text (not JSON). To modify a to do item, the client must issue
 	    a PUT request to this URL:
-	    <a href="https://localhost:8181/jakartaee-javascript/resources/todo/{username}/{id}">
-		https://localhost:8181/jakartaee-javascript/resources/todo/{username}/{id}</a>.
+    <a href="https://localhost:8443/jakartaee-javascript/resources/todo/{username}/{id}">
+		https://localhost:8443/jakartaee-javascript/resources/todo/{username}/{id}</a>.
 	    The PUT request body must follow this format:
 	    <pre>
         {"id": "to do item ID",
@@ -72,8 +72,8 @@
          "completed": "true|false"}
         </pre>
 	    To delete a to do item, the client must issue a DELETE request to this URL:
-	    <a href="https://localhost:8181/jakartaee-javascript/resources/todo/{username}/{id}">
-		https://localhost:8181/jakartaee-javascript/resources/todo/{username}/{id}</a>.
+	    <a href="https://localhost:8443/jakartaee-javascript/resources/todo/{username}/{id}">
+		https://localhost:8443/jakartaee-javascript/resources/todo/{username}/{id}</a>.
 	</p>
 </body>
 </html>

@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import jakarta.ejb.Lock;
+import jakarta.ejb.LockType;
 import jakarta.ejb.Singleton;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
@@ -44,6 +46,7 @@ public class ChatServer {
 	}
 
 	@OnMessage
+	@Lock(LockType.READ)
 	public void onMessage(@Valid ChatMessage message, Session session) {
 		logger.log(Level.INFO, "Received message {0} from peer {1}", new Object[] { message, session });
 

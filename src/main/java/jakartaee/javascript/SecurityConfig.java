@@ -6,8 +6,14 @@ import jakarta.security.enterprise.authentication.mechanism.http.BasicAuthentica
 import jakarta.security.enterprise.identitystore.DatabaseIdentityStoreDefinition;
 
 @ApplicationScoped
-@DataSourceDefinition(name = "java:app/jdbc/JavaScriptDb", className = "org.h2.jdbcx.JdbcDataSource", url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", user = "sa", password = "")
-@DatabaseIdentityStoreDefinition(dataSourceLookup = "java:app/jdbc/JavaScriptDb", callerQuery = "SELECT PASSWORD FROM JAVASCRIPT_USERS WHERE USERNAME = ?", groupsQuery = "SELECT GROUP_NAME FROM JAVASCRIPT_GROUPS WHERE USERNAME = ?")
+@DataSourceDefinition(
+		name = "java:app/jdbc/JavaScriptDb", 
+		className = "org.h2.jdbcx.JdbcDataSource", 
+		url = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", user = "sa", password = "")
+@DatabaseIdentityStoreDefinition(
+		dataSourceLookup = "java:app/jdbc/JavaScriptDb", 
+		callerQuery = "SELECT PASSWORD FROM JAVASCRIPT_USERS WHERE USERNAME = ?", 
+		groupsQuery = "SELECT GROUP_NAME FROM JAVASCRIPT_GROUPS WHERE USERNAME = ?")
 @BasicAuthenticationMechanismDefinition(realmName = "JavaScriptRealm")
 public class SecurityConfig {
 	// Security configuration.

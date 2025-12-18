@@ -30,7 +30,10 @@ public class ToDoResource implements Serializable {
 	@Consumes({ "application/json" })
 	@Produces({ "application/json" })
 	public ToDoItem create(
-			@PathParam("username") @NotEmpty @Size(min = 4, max = 14, message = "User name must be between 4 and 14 characters.") String username,
+			@PathParam("username")
+			@NotEmpty
+			@Size(min = 4, max = 14, message = "User name must be between 4 and 14 characters.")
+			String username,
 			@Valid ToDoItem item) {
 		return service.addToDoItem(username, item);
 	}
@@ -39,7 +42,10 @@ public class ToDoResource implements Serializable {
 	@Path("{id}")
 	@Consumes({ "application/json" })
 	public void edit(
-			@PathParam("username") @NotEmpty @Size(min = 4, max = 14, message = "User name must be between 4 and 14 characters.") String username,
+			@PathParam("username")
+			@NotEmpty
+			@Size(min = 4, max = 14, message = "User name must be between 4 and 14 characters.")
+			String username,
 			@PathParam("id") Long id, @Valid ToDoItem item) {
 		item.setId(id);
 		service.updateToDoItem(username, item);
@@ -48,7 +54,10 @@ public class ToDoResource implements Serializable {
 	@DELETE
 	@Path("{id}")
 	public void remove(
-			@PathParam("username") @NotEmpty @Size(min = 4, max = 14, message = "User name must be between 4 and 14 characters.") String username,
+			@PathParam("username")
+			@NotEmpty
+			@Size(min = 4, max = 14, message = "User name must be between 4 and 14 characters.")
+			String username,
 			@PathParam("id") Long id) {
 		service.removeToDoItem(username, id);
 	}
@@ -56,7 +65,10 @@ public class ToDoResource implements Serializable {
 	@GET
 	@Produces({ "application/json" })
 	public List<ToDoItem> getAll(
-			@PathParam("username") @NotEmpty @Size(min = 4, max = 14, message = "User name must be between 4 and 14 characters.") String username) {
+			@PathParam("username")
+			@NotEmpty
+			@Size(min = 4, max = 14, message = "User name must be between 4 and 14 characters.")
+			String username) {
 		return service.findToDoItemsByUsername(username);
 	}
 }

@@ -1,0 +1,30 @@
+.app-shell {
+  min-height: 100vh;
+  background: radial-gradient(circle at 10% 20%, #f0f7ff 0, #ffffff 45%);
+}
+
+.username-form input {
+  width: 180px;
+}
+
+.todo-card,
+.chat-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.list-group-item {
+  border: 0;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.list-group-item:last-child {
+  border-bottom: 0;
+}
+
+.chat-box {
+  height: 360px;
+  overflow-y: auto;
+  background: #fafbfc;
+}
