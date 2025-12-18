@@ -6,11 +6,6 @@ interface ToDoItem {
   completed?: boolean;
 }
 
-interface WhoAmIResponse {
-  user: string;
-  roles: string[];
-}
-
 const jsonHeaders: Record<string, string> = { 'Content-Type': 'application/json' };
 
 function redirectToBasicLogin(): void {
@@ -76,17 +71,4 @@ export function deleteToDo(username: string, id: number): Promise<null> {
   return request(`/todo/${encodeURIComponent(username)}/${id}`, {
     method: 'DELETE',
   });
-}
-
-// Perform a no-op call that will trigger auth if needed
-export async function ensureAuthenticated(username: string): Promise<void> {
-  try {
-    await request('/auth/whoami');
-  } catch (e) {
-    // redirect handled inside request()
-  }
-}
-
-export function getWhoAmI(): Promise<WhoAmIResponse | null> {
-  return request<WhoAmIResponse>('/auth/whoami');
 }
