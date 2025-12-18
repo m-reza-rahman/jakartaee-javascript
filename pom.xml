@@ -27,19 +27,6 @@
 		<payara-micro-maven-plugin.version>2.4</payara-micro-maven-plugin.version>
 	</properties>
 
-	<repositories>
-		<repository>
-			<id>payara-nexus-artifacts</id>
-			<url>https://nexus.payara.fish/repository/payara-artifacts/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
 	<dependencies>
 		<dependency>
 			<groupId>jakarta.platform</groupId>
