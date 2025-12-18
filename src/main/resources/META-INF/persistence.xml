@@ -24,10 +24,9 @@
 				value="drop-script.sql" />
 			<property name="jakarta.persistence.sql-load-script-source"
 				value="load-script.sql" />
-			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.use_sql_comments" value="true" />
-			<property name="hibernate.generate_statistics" value="true" />
+			<property name="eclipselink.logging.level.sql" value="FINE" />
+			<property name="eclipselink.logging.parameters" value="true" />
+			<property name="eclipselink.logging.level" value="FINE" />
 		</properties>
 	</persistence-unit>
 </persistence>
