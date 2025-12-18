@@ -1,5 +1,6 @@
 package jakartaee.javascript;
 
+import jakarta.annotation.security.DeclareRoles;
 import jakarta.annotation.sql.DataSourceDefinition;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.security.enterprise.authentication.mechanism.http.BasicAuthenticationMechanismDefinition;
@@ -17,6 +18,7 @@ import jakartaee.javascript.security.PlainTextPasswordHash;
 	groupsQuery = "SELECT GROUP_NAME FROM JAVASCRIPT_GROUPS WHERE USERNAME = ?",
 	hashAlgorithm = PlainTextPasswordHash.class)
 @BasicAuthenticationMechanismDefinition(realmName = "JavaScriptRealm")
+@DeclareRoles({"javascript_user"})
 public class SecurityConfig {
 	// Security configuration.
 }
