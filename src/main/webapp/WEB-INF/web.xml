@@ -8,6 +8,7 @@
         <web-resource-collection>
             <web-resource-name>Back-End Services</web-resource-name>
             <url-pattern>/resources/todo/*</url-pattern>
+            <url-pattern>/resources/monitoring/*</url-pattern>
             <url-pattern>/chat</url-pattern>
         </web-resource-collection>
     </security-constraint>

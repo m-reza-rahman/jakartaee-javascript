@@ -11,6 +11,7 @@
     "primeflex": "latest",
     "primeicons": "latest",
     "primereact": "latest",
+    "chart.js": "^4.4.4",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "react-router-dom": "^6.28.0",

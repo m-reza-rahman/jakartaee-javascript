@@ -72,5 +72,13 @@
 	    <a href="http://localhost:8080/resources/todo/{username}/{id}">
 		http://localhost:8080/resources/todo/{username}/{id}</a>.
 	</p>
+	<p>
+		The Server-Sent Events monitoring end-point is at: <a
+		href="http://localhost:8080/resources/monitoring/memory">
+		http://localhost:8080/resources/monitoring/memory</a>. It emits an SSE event named <code>memory</code> every 10 seconds containing the JVM used memory in MB (string formatted to two decimals). Clients can consume it with EventSource or curl, for example:
+		<pre>
+curl -N http://localhost:8080/resources/monitoring/memory
+		</pre>
+	</p>
 </body>
 </html>

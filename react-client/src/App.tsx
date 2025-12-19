@@ -5,6 +5,7 @@ import { Button } from 'primereact/button';
 import { MenuItem } from 'primereact/menuitem';
 import TodoPage from './pages/TodoPage';
 import ChatPage from './pages/ChatPage';
+import MemoryPage from './pages/MemoryPage';
 import { fetchLoggedInUser, redirectToLogin } from './services/authService';
 import './App.css';
 
@@ -47,6 +48,17 @@ function App() {
           </span>
         </NavLink>
       )
+    },
+    {
+      label: 'Monitoring',
+      icon: 'pi pi-chart-line',
+      template: (item: MenuItem, options: any) => (
+        <NavLink className={({ isActive }) => options.className + (isActive ? ' p-menuitem-active' : '')} to="/monitoring">
+          <span className={options.labelClassName}>
+            <i className={item.icon + ' mr-2'} />{item.label}
+          </span>
+        </NavLink>
+      )
     }
   ];
 
@@ -84,6 +96,7 @@ function App() {
               <Route path="/" element={<Navigate to="/todo" replace />} />
               <Route path="/todo" element={<TodoPage username={username} />} />
               <Route path="/chat" element={<ChatPage username={username} />} />
+              <Route path="/monitoring" element={<MemoryPage username={username} />} />
             </Routes>
           )}
           {!username && loadingUser && (

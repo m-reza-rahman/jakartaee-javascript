@@ -4,6 +4,8 @@ This project demonstrates how you can utilize today's most popular JavaScript fr
 
 It is a Jakarta EE 10 server-side application with a React front-end consisting of a chat application (powered by WebSocket) and a to-do list application (powered by REST). The server-side is implemented using the Java API for WebSocket, JSON Processing, REST, CDI, Validation, and Persistence.
 
+It also exposes a monitoring Server-Sent Events stream at `/resources/monitoring/memory` that publishes JVM used memory (MB) every 10 seconds; the React front-end renders this under the Monitoring page.
+
 The application uses basic authentication. You can set the username/passwords via the database scripts in the source code. The current users are reza, nicole, zehra, and inaya. Each is seeded with the password secret1.
 
 The project is in standard Maven format. You should be able to open it using any IDE that supports Maven and run it using any Jakarta EE 10 container. The project uses Payara Micro and an embedded H2 database.
@@ -19,3 +21,8 @@ Here are the instructions to get up and running:
   mvn clean package payara-micro:start
   ```
 * Open up a browser and go to [http://localhost:8080/](http://localhost:8080/)
+
+Quick SSE check (Payara Micro default ports):
+```
+curl -N http://localhost:8080/resources/monitoring/memory
+```
