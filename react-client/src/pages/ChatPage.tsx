@@ -56,19 +56,19 @@ function ChatPage({ username }: ChatPageProps) {
           <span className={`badge ${status === 'Connected' ? 'bg-success' : 'bg-secondary'}`}>{status}</span>
         </div>
 
-        <div className="chat-box border rounded p-2" ref={listRef}>
-          <table className="table table-sm mb-0 align-middle">
-            <tbody>
-              {messages.map((m, idx) => (
-                <tr key={idx}>
-                  <td className="text-muted small" style={{ width: '25%' }}>{m.timestamp}</td>
-                  <td className="fw-bold" style={{ width: '15%' }}>{m.user}</td>
-                  <td style={{ width: '60%' }}>{m.message}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {!messages.length && <div className="text-muted text-center py-3">No messages yet.</div>}
+        <div className="chat-box border rounded p-3" ref={listRef}>
+          <div className="messages-container">
+            {messages.map((m, idx) => (
+              <div key={idx} className="message-bubble">
+                <div className="message-header">
+                  <span className="message-user">{m.user}</span>
+                  <span className="message-timestamp">{m.timestamp}</span>
+                </div>
+                <div className="message-content">{m.message}</div>
+              </div>
+            ))}
+            {!messages.length && <div className="text-muted text-center py-3">No messages yet.</div>}
+          </div>
         </div>
 
         <form className="d-flex gap-2" onSubmit={handleSend}>
