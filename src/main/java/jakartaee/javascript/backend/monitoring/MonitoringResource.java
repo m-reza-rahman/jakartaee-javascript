@@ -45,7 +45,6 @@ public class MonitoringResource {
                 OutboundSseEvent event = sse.newEventBuilder()
                         .name("memory")
                         .data(String.class, DECIMAL_FORMATTER.format(usedMB))
-                        .reconnectDelay(10_000)
                         .build();
 
                 logger.log(Level.INFO, "Broadcasting memory usage: {0} MB.", usedMB);

@@ -35,7 +35,7 @@ function MemoryPage({ username }: Props) {
 
     es.addEventListener('memory', onMemory as EventListener);
     es.onerror = () => {
-      // rely on server's reconnectDelay
+      // rely on browser's default automatic SSE reconnect
     };
 
     return () => {
