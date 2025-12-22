@@ -19,7 +19,7 @@ export default defineConfig(({ mode }) => {
 
   return {
     // Ensure built assets resolve correctly under the WAR context path in production
-    base: isProd ? '/jakartaee-javascript/static/' : '/',
+    base: isProd ? '/static/' : '/',
     plugins: [react()],
     server: {
       proxy: {

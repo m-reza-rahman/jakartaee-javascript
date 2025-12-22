@@ -19,8 +19,8 @@
 		<payara-micro.version>7.2025.1</payara-micro.version>
 		<h2.version>2.3.232</h2.version>
 		<frontend-maven-plugin.version>1.15.4</frontend-maven-plugin.version>
-		<node.version>v20.11.1</node.version>
-		<npm.version>10.5.0</npm.version>
+		<node.version>v24.12.0</node.version>
+		<npm.version>11.0.0</npm.version>
 		<compiler-plugin.version>3.13.0</compiler-plugin.version>
 		<war-plugin.version>3.4.0</war-plugin.version>
 		<resources-plugin.version>3.3.1</resources-plugin.version>
@@ -112,7 +112,7 @@
                         <phase>prepare-package</phase>
                         <goals><goal>copy-resources</goal></goals>
                         <configuration>
-							<outputDirectory>${project.build.outputDirectory}/static</outputDirectory>
+							<outputDirectory>${project.build.directory}/${project.build.finalName}/static</outputDirectory>
                             <resources>
                                 <resource>
 									<directory>react-client/build</directory>
