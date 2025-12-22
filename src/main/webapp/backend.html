@@ -5,8 +5,9 @@
 </head>
 <body>
 	<h2>Jakarta EE as a JavaScript Back-End</h2>
-	<p>The JavaScript back-end consists of a chat WebSocket API and a to
-		do list REST API implemented using the Java API for WebSocket, 
+	<p>The JavaScript back-end consists of a chat WebSocket API, a to
+		do list REST API, and a JVM memory monitoring SSE API 
+		implemented using the Java API for WebSocket, 
 		JSON Processing, REST, and Jakarta EE 10.</p>
 	<p>
 		The WebSocket chat end-point is at: <a
@@ -73,11 +74,14 @@
 		http://localhost:8080/resources/todo/{username}/{id}</a>.
 	</p>
 	<p>
-		The Server-Sent Events monitoring end-point is at: <a
+		The SSE JVM memory monitoring end-point is at: <a
 		href="http://localhost:8080/resources/monitoring/memory">
-		http://localhost:8080/resources/monitoring/memory</a>. It emits an SSE event named <code>memory</code> every 10 seconds containing the JVM used memory in MB (string formatted to two decimals). Clients can consume it with EventSource or curl, for example:
+		http://localhost:8080/resources/monitoring/memory</a>. It emits an SSE event 
+		named <code>memory</code> every 10 seconds containing the JVM used memory 
+		in MB (string formatted to two decimals). The events look like this:
 		<pre>
-curl -N http://localhost:8080/resources/monitoring/memory
+        event: memory
+        data: 105.07
 		</pre>
 	</p>
 </body>
