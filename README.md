@@ -15,6 +15,7 @@ Here are the instructions to get up and running:
 * Install JDK 21
 * Open this project in your IDE
 * Build and run the project using Maven:
+
   ```
   mvn clean package payara-micro:start
   ```
