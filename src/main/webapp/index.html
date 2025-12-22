@@ -12,21 +12,22 @@
 		front-end framework. However, the choice of React is somewhat
 		arbitrary and not central to the application. The concepts and back-end
 		could also be utilized by Angular or Vue.</p>
-	<p>There are two main parts of the application:</p>
+	<p>There are three main parts of the application:</p>
 	<ul>
 		<li>A <a href="static/index.html">to do interface</a> that utilizes REST.
 		</li>
 		<li>A <a href="static/index.html">chat interface</a> that utilizes
 			WebSocket.
 		</li>
-		<li>A monitoring SSE stream at <code>/resources/monitoring/memory</code> that
-			emits JVM used memory (MB) every 10 seconds.</li>
+		<li>A <a href="static/index.html">live JVM memory monitoring interface</a> that utilizes
+			SSE.
+		</li>
 	</ul>
-	<p>Note that both interfaces are secured using HTTP BASIC authentication. 
+	<p>Note that all three interfaces are secured using HTTP BASIC authentication. 
 		You can set the usernames and passwords in the SQL load scripts of
 		the application source.</p>
 	<p>
-		The back-end REST and WebSocket APIs are documented <a
+		The back-end REST, SSE, and WebSocket APIs are documented <a
 			href="backend.html">here</a>.
 	</p>
 </body>
