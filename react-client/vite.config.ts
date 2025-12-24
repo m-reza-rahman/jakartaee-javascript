@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     server: {
       proxy: {
-        '/auth.jsp': {
+            '/resources/auth/user': {
           target: backendOrigin,
           changeOrigin: true,
           secure: false,
