@@ -156,7 +156,6 @@ function TodoPage({ username }: TodoPageProps) {
                         maxLength={110}
                         autoFocus
                         onChange={(e) => setEditingText(e.target.value)}
-                        onBlur={commitEdit}
                       />
                       <Button type="button" label="Cancel" severity="secondary" outlined onClick={cancelEdit} />
                       <Button type="submit" label="Save" icon="pi pi-check" />

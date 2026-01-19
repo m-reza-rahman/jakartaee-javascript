@@ -4,19 +4,20 @@
   "type": "module",
   "private": true,
   "dependencies": {
-    "primeflex": "latest",
-    "primeicons": "latest",
-    "primereact": "latest",
     "chart.js": "^4.4.4",
+    "primeflex": "4.0.0",
+    "primeicons": "7.0.0",
+    "primereact": "10.9.7",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "react-router-dom": "^6.30.3"
+    "react-router-dom": "^7.12.0"
   },
   "devDependencies": {
-    "@types/node": "^24.0.0",
+    "@types/node": "^25.0.9",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
     "typescript": "^5.4.5",
-    "@vitejs/plugin-react": "^4.3.3",
-    "vite": "^5.4.10"
+    "vite": "^7.3.1"
   },
   "scripts": {
     "dev": "vite",
