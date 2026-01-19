@@ -101,15 +101,11 @@ function TodoPage({ username }: TodoPageProps) {
   };
 
   return (
-    <Card className="todo-card shadow-1">
-        <div className="d-flex align-items-center justify-content-between mb-3">
-          <div>
-            <h2 className="h5 mb-0">{username || 'Anonymous'}'s To-Do List</h2>
-            <small className="text-muted">Add tasks, mark them done, edit inline.</small>
-          </div>
-          <span className="badge bg-secondary">{items.length} items</span>
-        </div>
-
+    <Card
+      className="todo-card shadow-1"
+      title={`${username || 'Anonymous'}'s To-Do List`}
+      subTitle={<span className="text-muted">Add tasks, mark them done, edit inline. <span className="badge bg-secondary ms-2">{items.length} items</span></span>}
+    >
       <form className="p-fluid grid" onSubmit={handleAdd}>
         <div className="col-12 md:col-9">
           <InputText

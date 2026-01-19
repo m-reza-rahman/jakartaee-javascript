@@ -46,16 +46,12 @@ function ChatPage({ username }: ChatPageProps) {
   };
 
   return (
-    <Card className="chat-card shadow-1">
+    <Card
+      className="chat-card shadow-1"
+      title={`Chat as ${username || 'Anonymous'}`}
+      subTitle={<span className="text-muted">WebSocket connected to the backend chat endpoint. <span className={`badge ms-2 ${status === 'Connected' ? 'bg-success' : 'bg-secondary'}`}>{status}</span></span>}
+    >
       <div className="d-flex flex-column gap-3">
-        <div className="d-flex justify-content-between align-items-center">
-          <div>
-            <h2 className="h5 mb-0">Chat as {username || 'Anonymous'}</h2>
-            <small className="text-muted">WebSocket connected to the backend chat endpoint.</small>
-          </div>
-          <span className={`badge ${status === 'Connected' ? 'bg-success' : 'bg-secondary'}`}>{status}</span>
-        </div>
-
         <div className="chat-box border rounded p-3" ref={listRef}>
           <div className="messages-container">
             {messages.map((m, idx) => (
