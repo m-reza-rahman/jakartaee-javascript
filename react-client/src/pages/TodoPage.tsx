@@ -101,26 +101,27 @@ function TodoPage({ username }: TodoPageProps) {
   };
 
   return (
-    <Card
-      className="todo-card shadow-1"
-      title={`${username || 'Anonymous'}'s To-Do List`}
-      subTitle={<span className="text-muted">Add tasks, mark them done, edit inline. <span className="badge bg-secondary ms-2">{items.length} items</span></span>}
-    >
-      <form className="p-fluid grid" onSubmit={handleAdd}>
-        <div className="col-12 md:col-9">
-          <InputText
-            placeholder="Buy milk"
-            value={newDescription}
-            minLength={5}
-            maxLength={110}
-            onChange={(e) => setNewDescription(e.target.value)}
-            required
-          />
-        </div>
-        <div className="col-12 md:col-3">
-          <Button type="submit" label="Add" icon="pi pi-plus" className="w-full" />
-        </div>
-      </form>
+    <div className="p-3">
+      <Card
+        className="todo-card shadow-1"
+        title={`${username || 'Anonymous'}'s To-Do List`}
+        subTitle={<span className="text-muted">Add tasks, mark them done, edit inline. <span className="badge bg-secondary ms-2">{items.length} items</span></span>}
+      >
+        <form className="p-fluid grid" onSubmit={handleAdd}>
+          <div className="col-12 md:col-9">
+            <InputText
+              placeholder="Buy milk"
+              value={newDescription}
+              minLength={5}
+              maxLength={110}
+              onChange={(e) => setNewDescription(e.target.value)}
+              required
+            />
+          </div>
+          <div className="col-12 md:col-3">
+            <Button type="submit" label="Add" icon="pi pi-plus" className="w-full" />
+          </div>
+        </form>
 
         {error && <div className="p-message p-component p-message-error mt-3"><div className="p-message-wrapper"><span className="p-message-icon pi pi-times-circle"></span><span className="p-message-text">{error}</span></div></div>}
 
@@ -170,7 +171,8 @@ function TodoPage({ username }: TodoPageProps) {
         {!loading && !items.length && (
           <div className="text-muted mt-3">No items yet. Add your first task above.</div>
         )}
-    </Card>
+      </Card>
+    </div>
   );
 }
 
