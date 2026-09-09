@@ -12,7 +12,7 @@ Setup Instructions
 ------------------
 Here are the instructions to get up and running:
 
-* Install JDK 21
+* Install JDK 25
 * Open this project in your IDE
 * Build and run the project using Maven:
 
