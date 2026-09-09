@@ -23,7 +23,7 @@ function ChatPage({ username }: ChatPageProps) {
       onClose: () => setStatus('Disconnected'),
     });
     clientRef.current = client;
-    
+
     return () => {
       if (clientRef.current) {
         clientRef.current.close();
@@ -47,39 +47,50 @@ function ChatPage({ username }: ChatPageProps) {
 
   return (
     <div className="p-3">
-      <Card
-        className="chat-card shadow-1"
-        title={`Chat as ${username || 'Anonymous'}`}
-        subTitle={<span className="text-muted">WebSocket communication with the backend chat endpoint. <span className={`badge ms-2 ${status === 'Connected' ? 'bg-success' : 'bg-secondary'}`}>{status}</span></span>}
-      >
-        <div className="d-flex flex-column gap-3">
-          <div className="chat-box border rounded p-3" ref={listRef}>
-            <div className="messages-container">
-              {messages.map((m, idx) => (
-                <div key={idx} className="message-bubble">
-                  <div className="message-header">
-                    <span className="message-user">{m.user}</span>
-                    <span className="message-timestamp">{m.timestamp}</span>
+      <Card.Root className="chat-card shadow-1">
+        <Card.Header>
+          <Card.Title>{`Chat as ${username || 'Anonymous'}`}</Card.Title>
+          <Card.Subtitle>
+            <span className="text-muted">
+              WebSocket communication with the backend chat endpoint.{' '}
+              <span className={`badge ms-2 ${status === 'Connected' ? 'bg-success' : 'bg-secondary'}`}>
+                {status}
+              </span>
+            </span>
+          </Card.Subtitle>
+        </Card.Header>
+        <Card.Content>
+          <div className="d-flex flex-column gap-3">
+            <div className="chat-box border rounded p-3" ref={listRef}>
+              <div className="messages-container">
+                {messages.map((m, idx) => (
+                  <div key={idx} className="message-bubble">
+                    <div className="message-header">
+                      <span className="message-user">{m.user}</span>
+                      <span className="message-timestamp">{m.timestamp}</span>
+                    </div>
+                    <div className="message-content">{m.message}</div>
                   </div>
-                  <div className="message-content">{m.message}</div>
-                </div>
-              ))}
-              {!messages.length && <div className="text-muted text-center py-3">No messages yet.</div>}
+                ))}
+                {!messages.length && <div className="text-muted text-center py-3">No messages yet.</div>}
+              </div>
             </div>
-          </div>
 
-          <form className="d-flex gap-2" onSubmit={handleSend}>
-            <InputText
-              placeholder="Say hello..."
-              value={newMessage}
-              onChange={(e) => setNewMessage(e.target.value)}
-              required
-              className="flex-grow-1"
-            />
-            <Button type="submit" label="Send" icon="pi pi-send" />
-          </form>
-        </div>
-      </Card>
+            <form className="d-flex gap-2" onSubmit={handleSend}>
+              <InputText
+                placeholder="Say hello..."
+                value={newMessage}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewMessage(e.target.value)}
+                required
+                className="flex-grow-1"
+              />
+              <Button type="submit">
+                <i className="pi pi-send" /> Send
+              </Button>
+            </form>
+          </div>
+        </Card.Content>
+      </Card.Root>
     </div>
   );
 }

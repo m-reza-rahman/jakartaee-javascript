@@ -78,3 +78,138 @@
   line-height: 1.5;
   word-break: break-word;
 }
+
+/* PrimeReact 11 ships headless primitives with no CSS. Basic styling below. */
+
+.p-card {
+  display: block;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.p-card-header {
+  margin-bottom: 12px;
+}
+
+.p-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.p-card-subtitle {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.p-inputtext {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background: #ffffff;
+  color: #111827;
+  box-sizing: border-box;
+}
+
+.p-inputtext:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: -1px;
+  border-color: #3b82f6;
+}
+
+.p-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #3b82f6;
+  border-radius: 6px;
+  background: #3b82f6;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.p-button:hover:not(:disabled) {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+.p-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.p-button[data-severity='secondary'] {
+  background: #6b7280;
+  border-color: #6b7280;
+}
+
+.p-button[data-severity='danger'] {
+  background: #ef4444;
+  border-color: #ef4444;
+}
+
+.p-button[data-variant='outlined'] {
+  background: transparent;
+  color: #3b82f6;
+}
+
+.p-button[data-variant='outlined'][data-severity='secondary'] {
+  color: #6b7280;
+}
+
+.p-button[data-variant='link'] {
+  background: transparent;
+  border-color: transparent;
+  color: #3b82f6;
+  padding: 0.25rem 0.5rem;
+}
+
+.p-button[data-variant='link'][data-severity='danger'] {
+  color: #ef4444;
+}
+
+.p-checkbox {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+}
+
+.p-checkbox-input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.p-checkbox-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+.p-checkbox[data-p-checked='true'] .p-checkbox-box {
+  background: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.p-checkbox-indicator {
+  color: #ffffff;
+  font-size: 0.8rem;
+  line-height: 1;
+}
+

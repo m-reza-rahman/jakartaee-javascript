@@ -6,9 +6,10 @@
   "dependencies": {
     "chart.js": "^4.4.4",
     "primeflex": "4.0.0",
-    "primeicons": "7.0.0",
-    "primereact": "10.9.7",
+    "primeicons": "^8.0.1",
+    "primereact": "^11.1.0",
     "react": "^19.3.0",
+    "react-chartjs-2": "^5.3.1",
     "react-dom": "^19.3.0",
     "react-router-dom": "^7.12.0"
   },
