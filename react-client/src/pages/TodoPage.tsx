@@ -188,6 +188,7 @@ function TodoPage({ username }: TodoPageProps) {
                           type="button"
                           severity="secondary"
                           variant="outlined"
+                          className="p-button-outlined p-button-secondary"
                           onClick={cancelEdit}
                         >
                           Cancel
@@ -202,7 +203,7 @@ function TodoPage({ username }: TodoPageProps) {
                       <Button
                         variant="link"
                         severity="danger"
-                        className="ms-auto"
+                        className="p-button-link p-button-danger ms-auto"
                         onClick={() => handleDelete(item.id)}
                       >
                         <i className="pi pi-trash" /> Remove
