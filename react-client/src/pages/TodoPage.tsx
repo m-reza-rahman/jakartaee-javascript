@@ -15,6 +15,9 @@ interface TodoPageProps {
   username: string;
 }
 
+const MIN_DESCRIPTION_LENGTH = 5;
+const MAX_DESCRIPTION_LENGTH = 110;
+
 function TodoPage({ username }: TodoPageProps) {
   const [items, setItems] = useState<ToDoItem[]>([]);
   const [loading, setLoading] = useState(false);
@@ -100,6 +103,11 @@ function TodoPage({ username }: TodoPageProps) {
     }
   };
 
+  const trimmedNewLength = newDescription.trim().length;
+  const canAdd = trimmedNewLength >= MIN_DESCRIPTION_LENGTH && trimmedNewLength <= MAX_DESCRIPTION_LENGTH;
+  const trimmedEditLength = editingText.trim().length;
+  const canSaveEdit = trimmedEditLength >= MIN_DESCRIPTION_LENGTH && trimmedEditLength <= MAX_DESCRIPTION_LENGTH;
+
   return (
     <div className="p-3">
       <Card
@@ -110,16 +118,19 @@ function TodoPage({ username }: TodoPageProps) {
         <form className="p-fluid grid" onSubmit={handleAdd}>
           <div className="col-12 md:col-9">
             <InputText
-              placeholder="Buy milk"
+              placeholder={`Description (${MIN_DESCRIPTION_LENGTH}-${MAX_DESCRIPTION_LENGTH} characters)`}
               value={newDescription}
-              minLength={5}
-              maxLength={110}
+              minLength={MIN_DESCRIPTION_LENGTH}
+              maxLength={MAX_DESCRIPTION_LENGTH}
               onChange={(e) => setNewDescription(e.target.value)}
               required
             />
+            <small className="text-muted">
+              {trimmedNewLength}/{MAX_DESCRIPTION_LENGTH} characters (minimum {MIN_DESCRIPTION_LENGTH})
+            </small>
           </div>
           <div className="col-12 md:col-3">
-            <Button type="submit" label="Add" icon="pi pi-plus" className="w-full" />
+            <Button type="submit" label="Add" icon="pi pi-plus" className="w-full" disabled={!canAdd} />
           </div>
         </form>
 
@@ -149,13 +160,13 @@ function TodoPage({ username }: TodoPageProps) {
                     <form className="d-flex flex-grow-1 gap-2" onSubmit={(e) => { e.preventDefault(); commitEdit(); }}>
                       <InputText
                         value={editingText}
-                        minLength={5}
-                        maxLength={110}
+                        minLength={MIN_DESCRIPTION_LENGTH}
+                        maxLength={MAX_DESCRIPTION_LENGTH}
                         autoFocus
                         onChange={(e) => setEditingText(e.target.value)}
                       />
                       <Button type="button" label="Cancel" severity="secondary" outlined onClick={cancelEdit} />
-                      <Button type="submit" label="Save" icon="pi pi-check" />
+                      <Button type="submit" label="Save" icon="pi pi-check" disabled={!canSaveEdit} />
                     </form>
                   )}
 
