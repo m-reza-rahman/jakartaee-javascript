@@ -27,10 +27,12 @@ public class ChatMessage implements Decoder.Text<ChatMessage>, Encoder.Text<Chat
 
     @Override
     public void init(EndpointConfig config) {
+        // Nothing to do
     }
 
     @Override
-    public void destroy() {
+    public boolean willDecode(String string) {
+        return true;
     }
 
     @Override
@@ -45,11 +47,6 @@ public class ChatMessage implements Decoder.Text<ChatMessage>, Encoder.Text<Chat
     }
 
     @Override
-    public boolean willDecode(String string) {
-        return true;
-    }
-
-    @Override
     public String encode(ChatMessage chatMessage) {
         JsonObject jsonObject = Json.createObjectBuilder().add("user", chatMessage.user)
                 .add("message", chatMessage.message)
@@ -57,6 +54,11 @@ public class ChatMessage implements Decoder.Text<ChatMessage>, Encoder.Text<Chat
                 .build();
 
         return jsonObject.toString();
+    }
+
+    @Override
+    public void destroy() {
+        // Nothing to do
     }
 
     @Override

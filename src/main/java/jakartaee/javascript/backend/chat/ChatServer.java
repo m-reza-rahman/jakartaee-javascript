@@ -40,12 +40,6 @@ public class ChatServer {
         peers.add(peer);
     }
 
-    @OnClose
-    public void onClose(Session peer) {
-        logger.log(Level.INFO, "Closed session: {0}", peer);
-        peers.remove(peer);
-    }
-
     @OnMessage
     @Lock(LockType.READ)
     public void onMessage(@Valid ChatMessage message, Session session) {
@@ -79,5 +73,11 @@ public class ChatServer {
         } catch (IOException ex) {
             logger.log(Level.SEVERE, null, ex);
         }
+    }
+
+    @OnClose
+    public void onClose(Session peer) {
+        logger.log(Level.INFO, "Closed session: {0}", peer);
+        peers.remove(peer);
     }
 }

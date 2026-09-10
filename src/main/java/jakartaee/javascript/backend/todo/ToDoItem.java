@@ -26,7 +26,8 @@ public class ToDoItem implements Serializable {
 
     private boolean completed;
 
-    protected ToDoItem() {
+    public ToDoItem() {
+        // Nothing to do
     }
 
     public ToDoItem(String username, String description, boolean completed) {
