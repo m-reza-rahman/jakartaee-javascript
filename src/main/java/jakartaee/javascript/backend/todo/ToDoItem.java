@@ -80,7 +80,7 @@ public class ToDoItem implements Serializable {
 
     @Override
     public String toString() {
-        return "ToDoItem[ id=" + id + " username=" + username + " desciption=" + description
+        return "ToDoItem[ id=" + id + " username=" + username + " description=" + description
                 + " completed=" + completed + " ]";
     }
 }

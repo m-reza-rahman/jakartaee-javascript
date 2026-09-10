@@ -66,12 +66,11 @@ public class ChatServer {
     @OnError
     public void onError(Session session, Throwable error) {
         try {
-            if (error.getCause() instanceof ConstraintViolationException) {
+            if (error.getCause() instanceof ConstraintViolationException cve) {
                 // Just report the first validation problem.
                 JsonObject jsonObject = Json.createObjectBuilder()
                         .add("error",
-                                ((ConstraintViolationException) error.getCause())
-                                        .getConstraintViolations().iterator().next().getMessage())
+                                cve.getConstraintViolations().iterator().next().getMessage())
                         .build();
                 session.getBasicRemote().sendText(jsonObject.toString());
             } else {

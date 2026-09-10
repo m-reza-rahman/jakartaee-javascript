@@ -14,6 +14,9 @@ import java.time.format.DateTimeFormatter;
 
 public class ChatMessage implements Decoder.Text<ChatMessage>, Encoder.Text<ChatMessage> {
 
+    private static final DateTimeFormatter FORMATTER =
+            DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm:ss a z");
+
     @NotBlank
     @Size(min = 4, max = 14, message = "User name must be between 4 and 14 characters.")
     private String user;
@@ -47,9 +50,7 @@ public class ChatMessage implements Decoder.Text<ChatMessage>, Encoder.Text<Chat
     public String encode(ChatMessage chatMessage) {
         JsonObject jsonObject = Json.createObjectBuilder().add("user", chatMessage.user)
                 .add("message", chatMessage.message)
-                .add("timestamp",
-                        ZonedDateTime.now()
-                                .format(DateTimeFormatter.ofPattern("MM/dd/yyyy h:mm:ss a z")))
+                .add("timestamp", ZonedDateTime.now().format(FORMATTER))
                 .build();
 
         return jsonObject.toString();
