@@ -27,7 +27,10 @@ public class ChatMessage implements Decoder.Text<ChatMessage>, Encoder.Text<Chat
 
     @Override
     public void init(EndpointConfig config) {
-        // Nothing to do.
+    }
+
+    @Override
+    public void destroy() {
     }
 
     @Override
@@ -43,7 +46,7 @@ public class ChatMessage implements Decoder.Text<ChatMessage>, Encoder.Text<Chat
 
     @Override
     public boolean willDecode(String string) {
-        return true; // Detect if it's a valid format.
+        return true;
     }
 
     @Override
@@ -54,11 +57,6 @@ public class ChatMessage implements Decoder.Text<ChatMessage>, Encoder.Text<Chat
                 .build();
 
         return jsonObject.toString();
-    }
-
-    @Override
-    public void destroy() {
-        // Nothing to do.
     }
 
     @Override

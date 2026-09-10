@@ -21,5 +21,4 @@ import jakarta.security.enterprise.identitystore.DatabaseIdentityStoreDefinition
 @BasicAuthenticationMechanismDefinition(realmName = "JavaScriptRealm")
 @DeclareRoles({"javascript_user"})
 public class SecurityConfig {
-    // Security configuration.
 }
