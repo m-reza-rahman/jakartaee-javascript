@@ -9,7 +9,10 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.SecurityContext;
+import jakarta.ws.rs.core.UriInfo;
 import java.io.Serializable;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @RequestScoped
 @Path("/auth")
@@ -18,36 +21,47 @@ public class AuthResource implements Serializable {
 
     @GET
     @Path("/user")
-    @Produces({MediaType.APPLICATION_JSON, MediaType.TEXT_HTML})
+    @Produces(MediaType.APPLICATION_JSON)
     public Response getCurrentUser(@Context SecurityContext securityContext,
+            @Context UriInfo uriInfo,
             @QueryParam("redirect") String redirect) {
         String username = (securityContext.getUserPrincipal() != null)
                 ? securityContext.getUserPrincipal().getName()
-                : ""; 
+                : "";
 
-        // If redirect parameter is present, return HTML that redirects
-        if ((redirect != null) && !redirect.trim().isEmpty()) { 
-            String html = """
-                <!DOCTYPE html>
-                <html lang=\"en\">
-                <head>
-                    <meta charset=\"UTF-8\" />
-                    <title>Authentication</title>
-                </head>
-                <body>
-                    <noscript>Please enable JavaScript to continue.</noscript>
-                    <script type=\"text/javascript\">
-                        window.location.replace(decodeURIComponent(\"%s\"));
-                    </script>
-                    <p>Authenticated as <strong>%s</strong>. Returning to application.</p>
-                </body>
-                </html>
-                """.formatted(redirect, username);
-
-            return Response.ok(html, MediaType.TEXT_HTML).build(); 
+        if (redirect != null && !redirect.isBlank()) {
+            URI target = sameOriginRedirect(redirect, uriInfo);
+            if (target == null) {
+                return Response.status(Response.Status.BAD_REQUEST).build();
+            }
+            return Response.seeOther(target).build();
         }
 
         return Response.ok(new UserInfo(username), MediaType.APPLICATION_JSON).build();
+    }
+
+    // Accept only same-origin targets: relative paths starting with a single '/', or absolute URIs whose
+    // scheme/host/port match the current request. Rejects protocol-relative, javascript:, data:, etc.
+    private static URI sameOriginRedirect(String candidate, UriInfo uriInfo) {
+        if (candidate.startsWith("//") || candidate.startsWith("/\\") || candidate.startsWith("\\")) {
+            return null;
+        }
+        URI target;
+        try {
+            target = new URI(candidate);
+        } catch (URISyntaxException ex) {
+            return null;
+        }
+        String scheme = target.getScheme();
+        if (scheme == null) {
+            return candidate.startsWith("/") ? target : null;
+        }
+        URI request = uriInfo.getRequestUri();
+        String host = target.getHost();
+        return scheme.equalsIgnoreCase(request.getScheme())
+                && host != null
+                && host.equalsIgnoreCase(request.getHost())
+                && target.getPort() == request.getPort() ? target : null;
     }
 
     public static class UserInfo {

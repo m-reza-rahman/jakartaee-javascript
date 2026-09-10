@@ -11,6 +11,9 @@
             <url-pattern>/resources/monitoring/*</url-pattern>
             <url-pattern>/chat</url-pattern>
         </web-resource-collection>
+        <auth-constraint>
+            <role-name>javascript_user</role-name>
+        </auth-constraint>
     </security-constraint>
     <security-constraint>
         <display-name>Secure REST Authentication Bridge</display-name>
