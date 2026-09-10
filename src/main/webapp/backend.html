@@ -8,7 +8,7 @@
 	<p>The JavaScript back-end consists of a chat WebSocket API, a to
 		do list REST API, and a JVM memory monitoring SSE API 
 		implemented using the Java API for WebSocket, 
-		JSON Processing, REST, and Jakarta EE 10.</p>
+		JSON Processing, REST, and Jakarta EE 11.</p>
 	<p>
 		The WebSocket chat end-point is at: <a
 		href="ws://localhost:8080/chat">
@@ -58,8 +58,9 @@
         {"description": "item description"}
         </pre>
 	    An ID will be automatically assigned and the item will be assumed to be
-	    incomplete. The POST response will return the ID assigned to the item
-	    as plain text (not JSON). To modify a to do item, the client must issue
+	    incomplete. The POST response will return the created item as JSON, in
+	    the same shape as the list entries above (id, description, completed).
+	    To modify a to do item, the client must issue
 	    a PUT request to this URL:
     <a href="http://localhost:8080/resources/todo/{username}/{id}">
 		http://localhost:8080/resources/todo/{username}/{id}</a>.
