@@ -60,6 +60,7 @@ function MemoryPage({ username }: Props) {
 
   const options = useMemo(() => ({
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: { display: true },
       tooltip: { enabled: true }
@@ -82,7 +83,12 @@ function MemoryPage({ username }: Props) {
           <span className="text-700">Current:</span>
           <span className="text-900 font-bold">{currentMb} MB</span>
         </div>
-        <Chart type="line" data={data} options={options} />
+        <Chart
+          type="line"
+          data={data}
+          options={options}
+          style={{ position: 'relative', height: 'calc(100vh - 260px)', minHeight: '500px', width: '100%' }}
+        />
       </Card>
     </div>
   );
