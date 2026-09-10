@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "todo_item")
@@ -69,23 +70,12 @@ public class ToDoItem implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+        return Objects.hashCode(id);
     }
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof ToDoItem)) {
-            return false;
-        }
-        ToDoItem other = (ToDoItem) object;
-        if ((this.id == null && other.id != null)
-                || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-
-        return true;
+        return object instanceof ToDoItem other && Objects.equals(id, other.id);
     }
 
     @Override

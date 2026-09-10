@@ -13,13 +13,11 @@ import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
-import java.io.Serializable;
 import java.util.List;
 
 @ApplicationScoped
 @Path("/todo/{username}")
-public class ToDoResource implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class ToDoResource {
 
     @Inject
     private ToDoService service;

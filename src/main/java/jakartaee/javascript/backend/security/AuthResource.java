@@ -10,14 +10,12 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.SecurityContext;
 import jakarta.ws.rs.core.UriInfo;
-import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 @RequestScoped
 @Path("/auth")
-public class AuthResource implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class AuthResource {
 
     @GET
     @Path("/user")
@@ -25,12 +23,12 @@ public class AuthResource implements Serializable {
     public Response getCurrentUser(@Context SecurityContext securityContext,
             @Context UriInfo uriInfo,
             @QueryParam("redirect") String redirect) {
-        String username = (securityContext.getUserPrincipal() != null)
+        var username = (securityContext.getUserPrincipal() != null)
                 ? securityContext.getUserPrincipal().getName()
                 : "";
 
         if (redirect != null && !redirect.isBlank()) {
-            URI target = sameOriginRedirect(redirect, uriInfo);
+            var target = sameOriginRedirect(redirect, uriInfo);
             if (target == null) {
                 return Response.status(Response.Status.BAD_REQUEST).build();
             }
@@ -52,33 +50,17 @@ public class AuthResource implements Serializable {
         } catch (URISyntaxException ex) {
             return null;
         }
-        String scheme = target.getScheme();
+        var scheme = target.getScheme();
         if (scheme == null) {
             return candidate.startsWith("/") ? target : null;
         }
-        URI request = uriInfo.getRequestUri();
-        String host = target.getHost();
+        var request = uriInfo.getRequestUri();
+        var host = target.getHost();
         return scheme.equalsIgnoreCase(request.getScheme())
                 && host != null
                 && host.equalsIgnoreCase(request.getHost())
                 && target.getPort() == request.getPort() ? target : null;
     }
 
-    public static class UserInfo {
-        private String username;
-
-        public UserInfo() {}
-
-        public UserInfo(String username) {
-            this.username = username;
-        }
-
-        public String getUsername() {
-            return username;
-        }
-
-        public void setUsername(String username) {
-            this.username = username;
-        }
-    }
+    public record UserInfo(String username) {}
 }

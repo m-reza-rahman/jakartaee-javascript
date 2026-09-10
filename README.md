@@ -2,7 +2,7 @@ Using JavaScript/HTML5 Clients with Jakarta EE 11
 =================================================
 This project demonstrates how you can utilize today's most popular JavaScript frameworks like React, Angular, or Vue to utilize the core strengths of Jakarta EE.
 
-It is a Jakarta EE 11 server-side application with a React front-end consisting of a chat application (powered by WebSocket), a to-do list application (powered by REST), and a live memory monitor (powered by SSE). The server-side is implemented using the Java API for WebSocket, JSON Processing, REST, CDI, Validation, and Persistence.
+It is a Jakarta EE 11 server-side application with a React front-end consisting of a chat application (powered by WebSocket), a to-do list application (powered by REST), and a live memory monitor (powered by SSE). The server-side is implemented using the Java API for WebSocket, JSON Processing, REST, CDI, Validation, Persistence, and Data.
 
 The application uses basic authentication. You can set the username/passwords via the database scripts in the source code. The current users are reza, nicole, zehra, and inaya. Each is seeded with the password secret1.
 
