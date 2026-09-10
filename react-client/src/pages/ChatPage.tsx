@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Card } from 'primereact/card';
@@ -45,7 +45,7 @@ function ChatPage({ username }: ChatPageProps) {
     }
   }, [messages]);
 
-  const handleSend = (event: React.FormEvent) => {
+  const handleSend = (event: FormEvent) => {
     event.preventDefault();
     const text = newMessage.trim();
     if (text.length < MIN_MESSAGE_LENGTH) {

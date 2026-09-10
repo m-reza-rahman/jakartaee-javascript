@@ -9,7 +9,7 @@ interface ToDoItem {
 
 const jsonHeaders: Record<string, string> = { 'Content-Type': 'application/json' };
 
-async function request<T = any>(path: string, options: RequestInit = {}): Promise<T | null> {
+async function request<T = unknown>(path: string, options: RequestInit = {}): Promise<T | null> {
   const response = await fetch(`${API_BASE}${path}`, {
     credentials: 'include',
     headers: { ...jsonHeaders, ...(options.headers || {}) },
@@ -18,7 +18,6 @@ async function request<T = any>(path: string, options: RequestInit = {}): Promis
 
   if (response.status === 401) {
     redirectToLogin();
-    throw new Error('Authentication required');
   }
 
   if (!response.ok) {
@@ -54,15 +53,15 @@ export function createToDo(username: string, description: string): Promise<ToDoI
   });
 }
 
-export function updateToDo(username: string, item: ToDoItem): Promise<ToDoItem | null> {
-  return request<ToDoItem>(`/todo/${encodeURIComponent(username)}/${item.id}`, {
+export function updateToDo(username: string, item: ToDoItem): Promise<void> {
+  return request<never>(`/todo/${encodeURIComponent(username)}/${item.id}`, {
     method: 'PUT',
     body: JSON.stringify(item),
-  });
+  }).then(() => undefined);
 }
 
-export function deleteToDo(username: string, id: number): Promise<null> {
-  return request(`/todo/${encodeURIComponent(username)}/${id}`, {
+export function deleteToDo(username: string, id: number): Promise<void> {
+  return request<never>(`/todo/${encodeURIComponent(username)}/${id}`, {
     method: 'DELETE',
-  });
+  }).then(() => undefined);
 }

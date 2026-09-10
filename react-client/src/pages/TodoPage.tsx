@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Checkbox } from 'primereact/checkbox';
@@ -44,7 +44,7 @@ function TodoPage({ username }: TodoPageProps) {
     loadItems();
   }, [loadItems]);
 
-  const handleAdd = async (event: React.FormEvent) => {
+  const handleAdd = async (event: FormEvent) => {
     event.preventDefault();
     const description = newDescription.trim();
     if (!description) return;

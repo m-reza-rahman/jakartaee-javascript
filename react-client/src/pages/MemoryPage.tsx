@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Card } from 'primereact/card';
 import { Chart } from 'primereact/chart';
 
@@ -25,11 +25,11 @@ function MemoryPage({ username }: Props) {
 
       setLabels((prev) => {
         const next = [...prev, label];
-        return next.length > MAX_POINTS ? next.slice(next.length - MAX_POINTS) : next;
+        return next.slice(-MAX_POINTS);
       });
       setValues((prev) => {
         const next = [...prev, mb];
-        return next.length > MAX_POINTS ? next.slice(next.length - MAX_POINTS) : next;
+        return next.slice(-MAX_POINTS);
       });
     };
 
