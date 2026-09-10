@@ -3,7 +3,6 @@ package jakartaee.javascript.backend.todo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -11,8 +10,6 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "todo_item")
-@NamedQuery(name = "ToDoItem.findByUsername",
-            query = "SELECT i FROM ToDoItem i WHERE i.username = :username")
 public class ToDoItem implements Serializable {
     private static final long serialVersionUID = 1L;
 

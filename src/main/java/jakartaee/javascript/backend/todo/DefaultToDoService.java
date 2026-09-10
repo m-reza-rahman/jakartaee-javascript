@@ -20,7 +20,7 @@ public class DefaultToDoService implements ToDoService {
 
         logger.log(Level.INFO, "Adding item: {0}", item);
 
-        return repository.create(item);
+        return repository.insert(item);
     }
 
     @Override
@@ -34,11 +34,10 @@ public class DefaultToDoService implements ToDoService {
 
     @Override
     public void removeToDoItem(String username, Long id) {
-        ToDoItem item = repository.find(id);
-
-        logger.log(Level.INFO, "Removing item: {0}", item);
-
-        repository.delete(item);
+        repository.findById(id).ifPresent(item -> {
+            logger.log(Level.INFO, "Removing item: {0}", item);
+            repository.delete(item);
+        });
     }
 
     @Override
