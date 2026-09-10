@@ -102,124 +102,76 @@ function TodoPage({ username }: TodoPageProps) {
 
   return (
     <div className="p-3">
-      <Card.Root className="todo-card shadow-1">
-        <Card.Header>
-          <Card.Title>{`${username || 'Anonymous'}'s To-Do List`}</Card.Title>
-          <Card.Subtitle>
-            <span className="text-muted">
-              Add tasks, mark them done, edit inline.{' '}
-              <span className="badge bg-secondary ms-2">{items.length} items</span>
-            </span>
-          </Card.Subtitle>
-        </Card.Header>
-        <Card.Content>
-          <form className="p-fluid grid" onSubmit={handleAdd}>
-            <div className="col-12 md:col-9">
-              <InputText
-                placeholder="Buy milk"
-                value={newDescription}
-                minLength={5}
-                maxLength={110}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setNewDescription(e.target.value)}
-                required
-              />
-            </div>
-            <div className="col-12 md:col-3">
-              <Button type="submit" className="w-full">
-                <i className="pi pi-plus" /> Add
-              </Button>
-            </div>
-          </form>
+      <Card
+        className="todo-card shadow-1"
+        title={`${username || 'Anonymous'}'s To-Do List`}
+        subTitle={<span className="text-muted">Add tasks, mark them done, edit inline. <span className="badge bg-secondary ms-2">{items.length} items</span></span>}
+      >
+        <form className="p-fluid grid" onSubmit={handleAdd}>
+          <div className="col-12 md:col-9">
+            <InputText
+              placeholder="Buy milk"
+              value={newDescription}
+              minLength={5}
+              maxLength={110}
+              onChange={(e) => setNewDescription(e.target.value)}
+              required
+            />
+          </div>
+          <div className="col-12 md:col-3">
+            <Button type="submit" label="Add" icon="pi pi-plus" className="w-full" />
+          </div>
+        </form>
 
-          {error && (
-            <div className="p-message p-component p-message-error mt-3">
-              <div className="p-message-wrapper">
-                <span className="p-message-icon pi pi-times-circle"></span>
-                <span className="p-message-text">{error}</span>
-              </div>
-            </div>
-          )}
+        {error && <div className="p-message p-component p-message-error mt-3"><div className="p-message-wrapper"><span className="p-message-icon pi pi-times-circle"></span><span className="p-message-text">{error}</span></div></div>}
 
-          {loading && <div className="text-muted mt-3">Loading...</div>}
+        {loading && <div className="text-muted mt-3">Loading...</div>}
 
-          {!loading && items.length > 0 && (
-            <ul className="list-group list-group-flush mt-3">
-              {items.map((item) => {
-                const isEditing = editingId === item.id;
-                return (
-                  <li key={item.id} className="list-group-item d-flex align-items-center gap-3">
-                    <Checkbox.Root
-                      checked={!!item.completed}
-                      onCheckedChange={() => handleToggle(item)}
+        {!loading && items.length > 0 && (
+          <ul className="list-group list-group-flush mt-3">
+            {items.map((item) => {
+              const isEditing = editingId === item.id;
+              return (
+                <li key={item.id} className="list-group-item d-flex align-items-center gap-3">
+                  <Checkbox checked={!!item.completed} onChange={() => handleToggle(item)} />
+
+                  {!isEditing && (
+                    <span
+                      className={`flex-grow-1 ${item.completed ? 'text-decoration-line-through text-muted' : ''}`}
+                      onDoubleClick={() => startEditing(item)}
+                      role="textbox"
                     >
-                      <Checkbox.Box>
-                        <Checkbox.Indicator>
-                          <i className="pi pi-check" />
-                        </Checkbox.Indicator>
-                      </Checkbox.Box>
-                    </Checkbox.Root>
+                      {item.description}
+                    </span>
+                  )}
 
-                    {!isEditing && (
-                      <span
-                        className={`flex-grow-1 ${item.completed ? 'text-decoration-line-through text-muted' : ''}`}
-                        onDoubleClick={() => startEditing(item)}
-                        role="textbox"
-                      >
-                        {item.description}
-                      </span>
-                    )}
+                  {isEditing && (
+                    <form className="d-flex flex-grow-1 gap-2" onSubmit={(e) => { e.preventDefault(); commitEdit(); }}>
+                      <InputText
+                        value={editingText}
+                        minLength={5}
+                        maxLength={110}
+                        autoFocus
+                        onChange={(e) => setEditingText(e.target.value)}
+                      />
+                      <Button type="button" label="Cancel" severity="secondary" outlined onClick={cancelEdit} />
+                      <Button type="submit" label="Save" icon="pi pi-check" />
+                    </form>
+                  )}
 
-                    {isEditing && (
-                      <form
-                        className="d-flex flex-grow-1 gap-2"
-                        onSubmit={(e) => {
-                          e.preventDefault();
-                          commitEdit();
-                        }}
-                      >
-                        <InputText
-                          value={editingText}
-                          minLength={5}
-                          maxLength={110}
-                          autoFocus
-                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEditingText(e.target.value)}
-                        />
-                        <Button
-                          type="button"
-                          severity="secondary"
-                          variant="outlined"
-                          className="p-button-outlined p-button-secondary"
-                          onClick={cancelEdit}
-                        >
-                          Cancel
-                        </Button>
-                        <Button type="submit">
-                          <i className="pi pi-check" /> Save
-                        </Button>
-                      </form>
-                    )}
+                  {!isEditing && (
+                    <Button label="Remove" icon="pi pi-trash" link severity="danger" className="ms-auto" onClick={() => handleDelete(item.id)} />
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        )}
 
-                    {!isEditing && (
-                      <Button
-                        variant="link"
-                        severity="danger"
-                        className="p-button-link p-button-danger ms-auto"
-                        onClick={() => handleDelete(item.id)}
-                      >
-                        <i className="pi pi-trash" /> Remove
-                      </Button>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-
-          {!loading && !items.length && (
-            <div className="text-muted mt-3">No items yet. Add your first task above.</div>
-          )}
-        </Card.Content>
-      </Card.Root>
+        {!loading && !items.length && (
+          <div className="text-muted mt-3">No items yet. Add your first task above.</div>
+        )}
+      </Card>
     </div>
   );
 }

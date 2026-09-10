@@ -1,454 +1,34 @@
-/* App-wide shell + design tokens (Lara-Light-Blue-inspired). */
-
-:root {
-  --pr-primary: #3b82f6;
-  --pr-primary-hover: #2563eb;
-  --pr-primary-soft: rgba(59, 130, 246, 0.15);
-  --pr-danger: #ef4444;
-  --pr-danger-hover: #dc2626;
-  --pr-danger-soft: rgba(239, 68, 68, 0.12);
-  --pr-secondary: #64748b;
-  --pr-secondary-hover: #475569;
-  --pr-success: #22c55e;
-  --pr-surface: #ffffff;
-  --pr-surface-alt: #f8fafc;
-  --pr-border: #e5e7eb;
-  --pr-border-strong: #cbd5e1;
-  --pr-text: #111827;
-  --pr-text-muted: #6b7280;
-  --pr-radius: 8px;
-  --pr-radius-lg: 12px;
-  --pr-shadow-1: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
-  --pr-shadow-2: 0 8px 24px rgba(15, 23, 42, 0.08);
-  --pr-focus-ring: 0 0 0 3px var(--pr-primary-soft);
-  --pr-transition: 0.15s ease;
-}
-
-body {
-  color: var(--pr-text);
-}
-
 .app-shell {
   min-height: 100vh;
-  background: radial-gradient(circle at 10% 20%, #eef4ff 0, #ffffff 45%);
-  padding-bottom: 32px;
+  background: radial-gradient(circle at 10% 20%, #f0f7ff 0, #ffffff 45%);
 }
 
 .username-form input {
   width: 180px;
 }
 
-/* -------- Card (PrimeReact 11 compound: Card.Root/Header/Title/...) -------- */
-
-.p-card {
-  display: block;
-  background: var(--pr-surface);
-  border: 1px solid var(--pr-border);
-  border-radius: var(--pr-radius-lg);
-  padding: 24px;
-  box-shadow: var(--pr-shadow-1);
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-.shadow-1 {
-  box-shadow: var(--pr-shadow-1);
-}
-
 .todo-card,
 .chat-card {
-  background: var(--pr-surface);
-}
-
-.p-card-header {
-  margin-bottom: 16px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--pr-border);
-}
-
-.p-card-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--pr-text);
-}
-
-.p-card-subtitle {
-  color: var(--pr-text-muted);
-  font-size: 0.9rem;
-  margin-top: 4px;
-}
-
-.p-card-content {
-  color: var(--pr-text);
-}
-
-/* ------------------------------ InputText ------------------------------- */
-
-.p-inputtext {
-  width: 100%;
-  padding: 0.55rem 0.85rem;
-  border: 1px solid var(--pr-border-strong);
-  border-radius: var(--pr-radius);
-  font-size: 0.95rem;
-  background: var(--pr-surface);
-  color: var(--pr-text);
-  box-sizing: border-box;
-  transition: border-color var(--pr-transition), box-shadow var(--pr-transition);
-}
-
-.p-inputtext::placeholder {
-  color: #9ca3af;
-}
-
-.p-inputtext:hover:not(:disabled):not(:focus) {
-  border-color: var(--pr-primary);
-}
-
-.p-inputtext:focus {
-  outline: none;
-  border-color: var(--pr-primary);
-  box-shadow: var(--pr-focus-ring);
-}
-
-/* -------------------------------- Button -------------------------------- */
-
-.p-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.55rem 1.05rem;
-  border: 1px solid var(--pr-primary);
-  border-radius: var(--pr-radius);
-  background: var(--pr-primary);
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background var(--pr-transition), border-color var(--pr-transition),
-    color var(--pr-transition), box-shadow var(--pr-transition);
-  text-decoration: none;
-}
-
-.p-button:hover:not(:disabled) {
-  background: var(--pr-primary-hover);
-  border-color: var(--pr-primary-hover);
-}
-
-.p-button:focus-visible {
-  outline: none;
-  box-shadow: var(--pr-focus-ring);
-}
-
-.p-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* Severity modifiers (apply via className alongside the `severity` prop). */
-.p-button.p-button-secondary {
-  background: var(--pr-secondary);
-  border-color: var(--pr-secondary);
-}
-
-.p-button.p-button-secondary:hover:not(:disabled) {
-  background: var(--pr-secondary-hover);
-  border-color: var(--pr-secondary-hover);
-}
-
-.p-button.p-button-danger {
-  background: var(--pr-danger);
-  border-color: var(--pr-danger);
-}
-
-.p-button.p-button-danger:hover:not(:disabled) {
-  background: var(--pr-danger-hover);
-  border-color: var(--pr-danger-hover);
-}
-
-/* Variant modifiers. */
-.p-button.p-button-outlined {
-  background: transparent;
-  color: var(--pr-primary);
-}
-
-.p-button.p-button-outlined:hover:not(:disabled) {
-  background: var(--pr-primary-soft);
-  color: var(--pr-primary-hover);
-  border-color: var(--pr-primary-hover);
-}
-
-.p-button.p-button-outlined.p-button-secondary {
-  color: var(--pr-secondary);
-}
-
-.p-button.p-button-outlined.p-button-secondary:hover:not(:disabled) {
-  background: rgba(100, 116, 139, 0.12);
-  color: var(--pr-secondary-hover);
-}
-
-.p-button.p-button-link {
-  background: transparent;
-  border-color: transparent;
-  color: var(--pr-primary);
-  padding: 0.35rem 0.65rem;
-  font-weight: 500;
-}
-
-.p-button.p-button-link:hover:not(:disabled) {
-  background: var(--pr-primary-soft);
-  color: var(--pr-primary-hover);
-}
-
-.p-button.p-button-link.p-button-danger {
-  color: var(--pr-danger);
-}
-
-.p-button.p-button-link.p-button-danger:hover:not(:disabled) {
-  background: var(--pr-danger-soft);
-  color: var(--pr-danger-hover);
-}
-
-.w-full {
-  width: 100%;
-}
-
-/* ------------------------------- Checkbox ------------------------------- */
-
-.p-checkbox {
-  display: inline-flex;
-  align-items: center;
-  position: relative;
-  vertical-align: middle;
-}
-
-.p-checkbox-input {
-  position: absolute;
-  inset: 0;
-  margin: 0;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.p-checkbox-box {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  border: 1px solid var(--pr-border-strong);
-  border-radius: 4px;
-  background: var(--pr-surface);
-  transition: background var(--pr-transition), border-color var(--pr-transition),
-    box-shadow var(--pr-transition);
-}
-
-.p-checkbox:hover .p-checkbox-box {
-  border-color: var(--pr-primary);
-}
-
-.p-checkbox-input:focus-visible + .p-checkbox-box,
-.p-checkbox:focus-within .p-checkbox-box {
-  box-shadow: var(--pr-focus-ring);
-  border-color: var(--pr-primary);
-}
-
-/* v11 primitives set data-checked / data-unchecked as presence attributes. */
-.p-checkbox[data-checked] .p-checkbox-box {
-  background: var(--pr-primary);
-  border-color: var(--pr-primary);
-}
-
-.p-checkbox-indicator {
-  color: #ffffff;
-  font-size: 0.75rem;
-  line-height: 1;
-  opacity: 0;
-  transform: scale(0.6);
-  transition: opacity var(--pr-transition), transform var(--pr-transition);
-}
-
-.p-checkbox[data-checked] .p-checkbox-indicator {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/* --------------------------- Layout utilities --------------------------- */
-/* Bootstrap-flavored helpers used in the pages, kept lightweight. */
-
-.d-flex {
-  display: flex;
-}
-
-.flex-column {
-  flex-direction: column;
-}
-
-.flex-grow-1 {
-  flex-grow: 1;
-}
-
-.align-items-center {
-  align-items: center;
-}
-
-.justify-content-between {
-  justify-content: space-between;
-}
-
-.gap-2 {
-  gap: 0.5rem;
-}
-
-.gap-3 {
-  gap: 0.75rem;
-}
-
-.py-3 {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-.p-3 {
-  padding: 1rem;
-}
-
-.mt-3 {
-  margin-top: 1rem;
-}
-
-.mb-3 {
-  margin-bottom: 1rem;
-}
-
-.ms-2 {
-  margin-left: 0.5rem;
-}
-
-.ms-auto {
-  margin-left: auto;
-}
-
-.border {
-  border: 1px solid var(--pr-border);
-}
-
-.rounded {
-  border-radius: var(--pr-radius);
-}
-
-.text-center {
-  text-align: center;
-}
-
-.text-muted {
-  color: var(--pr-text-muted);
-}
-
-.text-decoration-line-through {
-  text-decoration: line-through;
-}
-
-/* --------------------------- Badges & list ------------------------------ */
-
-.badge {
-  display: inline-block;
-  padding: 0.2rem 0.55rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-radius: 999px;
-  color: #ffffff;
-  vertical-align: middle;
-}
-
-.bg-secondary {
-  background: var(--pr-secondary);
-}
-
-.bg-success {
-  background: var(--pr-success);
-}
-
-.list-group {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
 }
 
 .list-group-item {
   border: 0;
   border-bottom: 1px solid #eef2f7;
-  padding: 0.75rem 0.25rem;
 }
 
 .list-group-item:last-child {
   border-bottom: 0;
 }
 
-/* --------------------------- Grid / p-fluid ----------------------------- */
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 0.75rem;
-  align-items: end;
-}
-
-.col-12 {
-  grid-column: span 12;
-}
-
-@media (min-width: 768px) {
-  .md\:col-9 {
-    grid-column: span 9;
-  }
-
-  .md\:col-3 {
-    grid-column: span 3;
-  }
-}
-
-.p-fluid .p-inputtext {
-  width: 100%;
-}
-
-/* ---------------------------- Message banner ---------------------------- */
-
-.p-message {
-  border-radius: var(--pr-radius);
-  padding: 0.75rem 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.p-message-error {
-  background: var(--pr-danger-soft);
-  color: var(--pr-danger-hover);
-  border: 1px solid var(--pr-danger-soft);
-}
-
-.p-message-wrapper {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.p-message-icon {
-  font-size: 1rem;
-}
-
-/* ----------------------------- Chat box --------------------------------- */
-
 .chat-box {
   height: 360px;
   overflow-y: auto;
-  background: var(--pr-surface-alt);
+  background: #fafbfc;
   display: flex;
   flex-direction: column;
-  padding: 12px;
-  border: 1px solid var(--pr-border);
-  border-radius: var(--pr-radius);
 }
 
 .messages-container {
@@ -459,16 +39,16 @@ body {
 }
 
 .message-bubble {
-  background: var(--pr-surface);
-  border-left: 4px solid var(--pr-primary);
+  background: white;
+  border-left: 4px solid #3b82f6;
   border-radius: 6px;
   padding: 12px;
-  box-shadow: var(--pr-shadow-1);
-  transition: box-shadow var(--pr-transition), transform var(--pr-transition);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
 }
 
 .message-bubble:hover {
-  box-shadow: var(--pr-shadow-2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transform: translateY(-1px);
 }
 
@@ -478,7 +58,7 @@ body {
   align-items: center;
   margin-bottom: 8px;
   padding-bottom: 8px;
-  border-bottom: 1px solid var(--pr-border);
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .message-user {
