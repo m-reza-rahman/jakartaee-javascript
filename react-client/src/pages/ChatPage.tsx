@@ -52,13 +52,19 @@ function ChatPage({ username }: ChatPageProps) {
       setErrorMsg(`Message must be at least ${MIN_MESSAGE_LENGTH} characters.`);
       return;
     }
-    clientRef.current?.send(text);
-    setNewMessage('');
-    setErrorMsg('');
+    if (status !== 'Connected' || !clientRef.current) {
+      setErrorMsg('Chat is not connected. Your message has not been sent.');
+      return;
+    }
+    if (clientRef.current.send(text)) {
+      setNewMessage('');
+      setErrorMsg('');
+    }
   };
 
   const trimmedLength = newMessage.trim().length;
-  const canSend = trimmedLength >= MIN_MESSAGE_LENGTH && trimmedLength <= MAX_MESSAGE_LENGTH;
+  const canSend = status === 'Connected'
+    && trimmedLength >= MIN_MESSAGE_LENGTH && trimmedLength <= MAX_MESSAGE_LENGTH;
 
   return (
     <div className="p-3">

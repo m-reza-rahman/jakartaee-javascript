@@ -15,7 +15,7 @@ interface ChatClientOptions {
 }
 
 interface ChatClient {
-  send: (text: string) => void;
+  send: (text: string) => boolean;
   close: () => void;
 }
 
@@ -48,15 +48,17 @@ export function createChatClient(username: string, { onMessage, onError, onOpen,
   };
 
   const send = (text: string) => {
-    if (!text) return;
-    const payload = JSON.stringify({ user: username, message: text });
-    if (socket.readyState === WebSocket.OPEN) {
-      socket.send(payload);
-      return;
+    if (socket.readyState !== WebSocket.OPEN) {
+      onError?.('Chat is not connected. Your message has not been sent.');
+      return false;
     }
-    if (socket.readyState === WebSocket.CONNECTING) {
-      socket.addEventListener('open', () => socket.send(payload), { once: true });
+    try {
+      socket.send(JSON.stringify({ user: username, message: text }));
+    } catch (err) {
+      onError?.(err instanceof Error ? err.message : 'Unable to send message.');
+      return false;
     }
+    return true;
   };
 
   const close = () => {
